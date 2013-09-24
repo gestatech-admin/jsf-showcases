@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+<ui:define name="main">
+    <style>
+        .bananaTable .yellow {background-color:yellow;}
+        .bananaTable .brown {background-color:brown;}
+    </style>
+    <h:dataTable styleClass="bananaTable" value="#{styledDatatable.bananas}" var="banana" rowClasses="#{styledDatatable.bananaRowClasses}">
+        <h:column>
+            <f:facet name="header">
+                Name
+            </f:facet>
+            #{banana.name}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Yellowness
+            </f:facet>
+            #{banana.yellowness}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Browness
+            </f:facet>
+            #{banana.browness}
+        </h:column>
+    
+    </h:dataTable>
+    </ui:define>
+</ui:composition>
+
+</html>

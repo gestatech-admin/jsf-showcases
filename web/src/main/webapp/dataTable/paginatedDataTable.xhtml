@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+<f:metadata>
+    <f:viewParam name="currentPage" value="#{paginatedDatatable.p.currentPage}" />
+    <f:viewParam name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+</f:metadata>
+<ui:define name="main">
+    <h:dataTable value="#{paginatedDatatable.bananas}" var="banana">
+        <h:column>
+            <f:facet name="header">
+                Name
+            </f:facet>
+            #{banana.name}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Yellowness
+            </f:facet>
+            #{banana.yellowness}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Browness
+            </f:facet>
+            #{banana.browness}
+        </h:column>
+    </h:dataTable>
+    <h:link value="&lt;">
+            <f:param name="currentPage" value="#{paginatedDatatable.p.previousPageNum}" />
+            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+        </h:link>
+    <ui:repeat value="#{paginatedDatatable.p.pages}" var="pageNum">
+        <h:link value="#{pageNumn}">
+            <f:param name="currentPage" value="#{pageNum}" />
+            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+        </h:link>
+    </ui:repeat>
+    <h:link value="&gt;">
+            <f:param name="currentPage" value="#{paginatedDatatable.p.nextPageNum}" />
+            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+        </h:link>
+        </ui:define>
+</ui:composition>
+
+</html>

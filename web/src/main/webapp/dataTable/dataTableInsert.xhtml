@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+<ui:define name="main">
+
+    <h:form id="newBananaForm">
+        <h:outputLabel value="Name" for="newBananaName"/>
+        <h:inputText id="newBananaName" value="#{datatableInsert.newBanana.name}"/>
+        
+        <h:outputLabel value="Yellowness" for="newBananaYellowness"/>
+        <h:inputText id="newBananaYellowness" value="#{datatableInsert.newBanana.yellowness}"/>
+        
+        <h:outputLabel value="Browness" for="newBananaBrowness"/>
+        <h:inputText id="newBananaBrowness" value="#{datatableInsert.newBanana.browness}"/>
+        
+        <h:commandButton value="Add" action="#{datatableInsert.createBananaAction}" />
+    </h:form>
+    
+    <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
+        <h:column>
+            <f:facet name="header">
+                Name
+            </f:facet>
+            #{banana.name}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Yellowness
+            </f:facet>
+            #{banana.yellowness}
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                Browness
+            </f:facet>
+            #{banana.browness}
+        </h:column>
+    
+    </h:dataTable>
+    </ui:define>
+</ui:composition>
+
+</html>
