@@ -13,6 +13,9 @@ import javax.inject.Named;
 @RequestScoped
 public class Index {
 
+    /**
+     * @return list of xhtml pages within the war
+     */
     public List<String> getPages() {
 	FacesContext facesCtx = FacesContext.getCurrentInstance();
 	ExternalContext externalContext = facesCtx.getExternalContext();
@@ -22,19 +25,31 @@ public class Index {
 	return result;
     }
 
+    /**
+     * recursively extracth .xhtml pages from any directories
+     * 
+     * @param externalContext
+     * @param pathPrefix
+     * @param result
+     */
     private void extractXhtmls(ExternalContext externalContext,
 	    String pathPrefix, List<String> result) {
 
 	Set<String> resourcePaths = externalContext
 		.getResourcePaths(pathPrefix);
+
 	for (String path : resourcePaths) {
+
 	    if (path.endsWith(".xhtml")) {
 		// if xhtml, append
+
 		result.add(path);
 	    } else if (path.endsWith("/")) {
 		// if directory, recurse
+
 		extractXhtmls(externalContext, path, result);
 	    }
+
 	}
     }
 }

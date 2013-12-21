@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+	<ui:debug></ui:debug>
+	<ui:define name="main">
+		<h1>&lt;ui:debug/&gt;</h1>
+		<h2>What is it?</h2>
+		<p>
+			Works with CTRL+SHIFT+D by default. Use <i>hotkey</i> option to
+			define other key e.g. <i>hotkey="h"</i> means CTRL+SHIFT+H. When you open the debug window, make sure your browser does not prevent opening a
+			pop-up window.
+		</p>
+
+		<p>
+			The <i>component tree</i> is represented by an XML-like structure.
+			The first component you see is the <i>UIViewRoot</i> which is the
+			root of the component tree. With <i>CTRL+F</i> find the line
+			"hotkey". That represents the <i>&lt;ui:debug&gt;</i> component on
+			the page. That component is responsible for rendering a small
+			JavaScript function to show the debug pop-up window.
+		</p>
+
+		<p>
+			<i>HtmlPanelGroup</i> component is created by the <i>&lt;h:panelGroup&gt;</i>
+			JSF tag. By default <i>&lt;h:panelGroup&gt;</i> is rendered as a <i>&lt;span&gt;</i>
+			HTML element. By providing the <i>layout="block"</i> attribute, the
+			rendered HTML element is going to be <i>&lt;div&gt;</i>.
+		</p>
+
+		<p>The list at the bottom of the page (<i>Example output of components/ui:repeat</i>) is defined as:</p>
+		<pre>
+&lt;h:panelGroup layout=&quot;block&quot; id=&quot;pageListHolder&quot;&gt;
+  &lt;ui:repeat var=&quot;page&quot; value=&quot;\#{index.pages}&quot;&gt;
+    &lt;h:link outcome=&quot;\#{page}&quot;&gt;\#{page}&lt;/h:link&gt;
+    &lt;br /&gt;
+  &lt;/ui:repeat&gt;
+&lt;/h:panelGroup&gt;</pre>
+
+		<p>
+			You can find the component in the debug view by searching for
+			"pageListHolder". Within <i>pageListHolder</i> there is the <i>UIRepeat</i>
+			then a <i>HtmlOutputTargetLink</i> component. Although there are more
+			than one links listed, only one component is responsible for all of
+			them. In this specific case when we define something within <i>&lt;ui:repeat&gt;</i>.
+			When JSF renders the <i>&lt;ui:repeat&gt;</i> tag, it updates the
+			state of <i>&lt;link&gt;</i> component in every iteration before
+			rendering it to HTML.
+		</p>
+
+		<p>
+			Another interesting observation is simple HTML tags without any JSF
+			specific prefix, or basically any text that cannot be interpreted by
+			JSF, is rendered unchanged. This is why the <i>&lt;p&gt;</i> tags are
+			not presented as components in the debug view.
+		</p>
+
+		<h2>How to use it for debugging</h2>
+		<p>When something is not shown on the screen that supposed to be
+			there, you can check if it is present within the component tree.</p>
+
+		<p>When You create conditional rendering, such as</p>
+		<pre>rendered="\#{bean.thisRendered}"</pre>
+		<p>
+			You can check the value of the <i>rendered</i> attribute to make
+			sure, your rendering condition works as expected. For that, you can
+			also just type this EL expression somewhere on the page and see for
+			yourself what the output is.
+		</p>
+
+		<p>
+			If you want to take something out of the component tree completely on
+			build time, you can use the <i>&lt;ui:remove&gt;</i> JSF tag.
+			Anything within this tag will not be presented in the comopnent tree.
+			Don't just rely on the the standard XML comment syntax.
+		</p>
+
+        <h2>Example output of components</h2>
+        
+        <h3>ui:remove</h3>
+        Below there is something within <i>&lt;ui:remove&gt;</i>not shown in the component tree
+        <ui:remove>
+            <h:outputText>This is not going to be in the component tree</h:outputText>
+        </ui:remove>
+        
+        <h3>ui:fragment</h3>
+        Below is simply not rendered, but shown in the component tree
+        <ui:fragment rendered="false">
+            This fragment is within the component tree, but not rendered
+            <h:panelGroup>in the html</h:panelGroup>
+        </ui:fragment>
+        
+        <h3>ui:repeat</h3>
+		<h:panelGroup layout="block" id="pageListHolder">
+			<ui:repeat var="page" value="#{index.pages}">
+				<h:link outcome="#{page}">#{page}</h:link>
+				<br />
+			</ui:repeat>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
+
+</html>
