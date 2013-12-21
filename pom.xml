@@ -10,6 +10,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>web</module>
+    <module>jsf-showcases.web</module>
   </modules>
 </project>
