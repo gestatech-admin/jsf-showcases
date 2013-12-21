@@ -7,22 +7,7 @@
 
 <ui:composition template="/resources/templates/t_main.xhtml">
     <ui:define name="main">
-        <h:form>
-            <h:inputText value="#{bananaListController.newBananaName}"/>
-            
-            <h:commandButton action="#{bananaListController.createBanana}"/>
-        
-        </h:form>
-        <h:dataTable value="#{bananaListController.bananas}" var="banana"> 
-        <h:column>
-            <f:facet name="header">
-                NAME
-            </f:facet>
-            
-            #{banana.name}
-        </h:column>
-        
-        </h:dataTable>
+        somethings
     </ui:define>
 </ui:composition>
 
