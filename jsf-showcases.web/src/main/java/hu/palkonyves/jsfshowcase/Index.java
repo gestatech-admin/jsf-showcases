@@ -1,4 +1,4 @@
-package hu.palkonyves.jsfshowcase.index;
+package hu.palkonyves.jsfshowcase;
 
 import java.io.IOException;
 import java.io.InputStream;

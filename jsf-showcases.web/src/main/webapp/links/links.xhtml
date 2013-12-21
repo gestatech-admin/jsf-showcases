@@ -20,46 +20,27 @@
             <h3>Navigating within the application</h3>
             <p>
                 <i>h:link</i> tag is designated to navigate within the
-                application and within page. You have to use absolute
-                path which is resolved to the application context root.
-                The application context here is <i>/showcase/</i>. The
-                absolute path <i>/index</i> used in h:link resolves to <i>/showcase/index.jsf</i>.
-                Meanwhile don't forget that the actual <i>index.jsf</i>
-                sits in the war root folder.<br /> The "href" attribute
-                of h:link is called <i>outcome</i>. That is because this
-                tag is aware of declaratively defined navigation cases
-                in faces-config.xml. If there isn't any matching
-                navigation case, JSF will try to find a matching xhtml
-                page
+                application and within page. This tag is aware of
+                declaratively defined navigation cases in
+                faces-config.xml. If there isn't any matching navigation
+                case, JSF will try to find a matching xhtml page
             </p>
 
             <p>
-                <i>value</i> attribute is the text presented to the
-                user, the <i>outcome</i> attribute is used to determine
-                the <i>href</i> part of rendered <i>&lt;a&gt;</i> tag<br />
                 <h:link id="link1" value="index" outcome="/index" />
             </p>
 
             <p>
-                You can also set the value as a child text<br />
-                <h:link id="link2" outcome="/index">value as child element</h:link>
+                <h:link id="link2" outcome="/index">value as child text element</h:link>
             </p>
 
             <p>
-                If you mess up your outcome, and JSF doesn't find a
-                matching url within the application, it will not render
-                the anchor tag. You will see something like this in the
-                LOG <i>"WARNING: JSF1090: Navigation case not
-                    resolved for component j_idt20."</i><br />
-                <h:link id="link3" outcome="/showcase/index">
-                    <h:outputText value="messed up navigation case" />
-                </h:link>
+                <h:link id="link3" outcome="/showcase/index">broken navigation case</h:link>
             </p>
 
             <p>
-                Pass GET attributes with <i>ui:param</i><br />
                 <h:link id="link4" outcome="/index">
-                    <h:outputText value="pass get attributes" />
+                    <h:outputText value="pass query parameters" />
                     <f:param name="key" value="value"></f:param>
                     <f:param name="key2" value="value2"></f:param>
                 </h:link>
@@ -67,32 +48,17 @@
 
             <h3>Navigation within page</h3>
             <p>
-                You can navigate within page. If you use the <i>fragment</i>
-                attribute of h:link, a link will be generated that jumps
-                to the &lt;a&gt; with the id defined in the fragment
-                attribute.<br />
-                <h:link id="link5" value="jump within page"
-                    fragment="withinPage" />
+                <h:link id="link5" value="jump to anchor" fragment="withinPage" />
             </p>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <pre>anchor here</pre>
-            <h:link id="withinPage" />
+
+            <p>
+                <h:link id="withinPage" />
+                anchor here
+            </p>
 
             <!-- h:outputLink -->
-            <h2>&lt;h:outputLink&gt;</h2>
+            <h2>&lt;h:outputLink&gt; for other websites</h2>
             <p>
-                <i>h:outputLink</i> is used to navigate outside the
-                application, and is not recommended to use for
-                navigating within the application. The <i>value</i>
-                attribute of outputLink is used as <i>href</i> attribute
-                of the corresponding &lt;a&gt; tag.<br />
                 <h:outputLink id="outputLink1" value="http://dzone.com">outputLink to dZone
                 <ui:param name="someKey" value="someValue"></ui:param>
                 </h:outputLink>
@@ -101,9 +67,21 @@
             <!-- a -->
             <h2>&lt;a&gt;</h2>
             <p>
-                Besides h:outputLink, You can use the good old &lt;a&gt;
-                tag.<br /> <a id="anchor" href="/showcase/index.jsf">index</a>
+                <a id="anchor" href="/showcase/index.jsf">good old &lt;a&gt; tag</a>
             </p>
+
+            <!-- commandLink -->
+            <h2>&lt;h:commandLink&gt;</h2>
+            <h:form id="linkForm">
+                <p>
+                    CommandLink is used within <i>&lt;h:form&gt;</i> and
+                    creates a <i>POST</i> request. Notice that the URL
+                    does not change, because <u>every forms makes a
+                        request to the same page it is defined</u>
+                    <h:commandLink
+                        action="#{commandLinkExample.doSomethingPermanent}">commandLink back to index</h:commandLink>
+                </p>
+            </h:form>
         </h:panelGroup>
 
 
