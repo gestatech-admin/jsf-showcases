@@ -3,16 +3,17 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+
 	<groupId>hu.palkonyves</groupId>
 	<artifactId>jsf-showcases.web</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
-	  <parent>
-    <groupId>hu.palkonyves</groupId>
-    <artifactId>jsf-showcases</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+
+	<parent>
+		<groupId>hu.palkonyves</groupId>
+		<artifactId>jsf-showcases</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
 
 	<dependencies>
 		<dependency>
@@ -55,5 +56,38 @@
 
 	<build>
 		<finalName>jsf-showcase</finalName>
+
+		<!-- plugins -->
+			<plugins>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.3-SNAPSHOT</version>
+
+					<configuration>
+						<!-- http port -->
+						<port>8080</port>
+						<!-- application path always starts with / -->
+						<path>/</path>
+						<!-- optional path to a context file -->
+						<contextFile>\${tomcatContextXml}</contextFile>
+						<!-- optional system propoerties you want to add -->
+						<systemProperties>
+							<appserver.base>${project.build.directory}/appserver-base</appserver.base>
+							<appserver.home>${project.build.directory}/appserver-home</appserver.home>
+							<derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
+							<java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+						</systemProperties>
+						<!-- if you want to use test dependencies rather than only runtime -->
+						<useTestClasspath>false</useTestClasspath>
+						<!-- optional if you want to add some extra directories into the classloader -->
+						<additionalClasspathDirs>
+							<additionalClasspathDir></additionalClasspathDir>
+						</additionalClasspathDirs>
+					</configuration>
+				</plugin>
+			</plugins>
 	</build>
+
+
 </project>

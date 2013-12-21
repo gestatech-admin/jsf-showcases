@@ -6,8 +6,12 @@
     xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
-    <ui:define name="main">  
-        somethings
+    <ui:define name="main">
+        <ui:repeat var="page" value="#{index.pages}">
+            <h:link outcome="#{page}">#{page}</h:link>
+            <br/>
+        </ui:repeat>  
+        
     </ui:define>
 </ui:composition>
 
