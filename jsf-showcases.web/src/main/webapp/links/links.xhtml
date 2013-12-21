@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+    <ui:define name="main">
+        <h1>Creating links</h1>
+        <h:panelGroup id="linksHolder">
+
+            <!-- h:link -->
+            <h2>&lt;h:link&gt;</h2>
+            <p>
+                Check out this URL: <i>/showcase/links/links.jsf</i><br />
+                And we are going to navigate to <i>/showcase/index.jsf</i>
+            </p>
+
+            <h3>Navigating within the application</h3>
+            <p>
+                <i>h:link</i> tag is designated to navigate within the
+                application and within page. You have to use absolute
+                path which is resolved to the application context root.
+                The application context here is <i>/showcase/</i>. The
+                absolute path <i>/index</i> used in h:link resolves to <i>/showcase/index.jsf</i>.
+                Meanwhile don't forget that the actual <i>index.jsf</i>
+                sits in the war root folder.<br /> The "href" attribute
+                of h:link is called <i>outcome</i>. That is because this
+                tag is aware of declaratively defined navigation cases
+                in faces-config.xml. If there isn't any matching
+                navigation case, JSF will try to find a matching xhtml
+                page
+            </p>
+
+            <p>
+                <i>value</i> attribute is the text presented to the
+                user, the <i>outcome</i> attribute is used to determine
+                the <i>href</i> part of rendered <i>&lt;a&gt;</i> tag<br />
+                <h:link id="link1" value="index" outcome="/index" />
+            </p>
+
+            <p>
+                You can also set the value as a child text<br />
+                <h:link id="link2" outcome="/index">value as child element</h:link>
+            </p>
+
+            <p>
+                If you mess up your outcome, and JSF doesn't find a
+                matching url within the application, it will not render
+                the anchor tag. You will see something like this in the
+                LOG <i>"WARNING: JSF1090: Navigation case not
+                    resolved for component j_idt20."</i><br />
+                <h:link id="link3" outcome="/showcase/index">
+                    <h:outputText value="messed up navigation case" />
+                </h:link>
+            </p>
+
+            <p>
+                Pass GET attributes with <i>ui:param</i><br />
+                <h:link id="link4" outcome="/index">
+                    <h:outputText value="pass get attributes" />
+                    <f:param name="key" value="value"></f:param>
+                    <f:param name="key2" value="value2"></f:param>
+                </h:link>
+            </p>
+
+            <h3>Navigation within page</h3>
+            <p>
+                You can navigate within page. If you use the <i>fragment</i>
+                attribute of h:link, a link will be generated that jumps
+                to the &lt;a&gt; with the id defined in the fragment
+                attribute.<br />
+                <h:link id="link5" value="jump within page"
+                    fragment="withinPage" />
+            </p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <pre>anchor here</pre>
+            <h:link id="withinPage" />
+
+            <!-- h:outputLink -->
+            <h2>&lt;h:outputLink&gt;</h2>
+            <p>
+                <i>h:outputLink</i> is used to navigate outside the
+                application, and is not recommended to use for
+                navigating within the application. The <i>value</i>
+                attribute of outputLink is used as <i>href</i> attribute
+                of the corresponding &lt;a&gt; tag.<br />
+                <h:outputLink id="outputLink1" value="http://dzone.com">outputLink to dZone
+                <ui:param name="someKey" value="someValue"></ui:param>
+                </h:outputLink>
+            </p>
+
+            <!-- a -->
+            <h2>&lt;a&gt;</h2>
+            <p>
+                Besides h:outputLink, You can use the good old &lt;a&gt;
+                tag.<br /> <a id="anchor" href="/showcase/index.jsf">index</a>
+            </p>
+        </h:panelGroup>
+
+
+        <h2>Source code</h2>
+        <pre class="prettyprint">#{index.getSource('links/links.xhtml')}</pre>
+    </ui:define>
+</ui:composition>
+</html>
