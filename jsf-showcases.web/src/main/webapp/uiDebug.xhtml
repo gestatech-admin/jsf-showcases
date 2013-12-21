@@ -12,8 +12,9 @@
 		<h2>What is it?</h2>
 		<p>
 			Works with CTRL+SHIFT+D by default. Use <i>hotkey</i> option to
-			define other key e.g. <i>hotkey="h"</i> means CTRL+SHIFT+H. When you open the debug window, make sure your browser does not prevent opening a
-			pop-up window.
+			define other key e.g. <i>hotkey="h"</i> means CTRL+SHIFT+H. When you
+			open the debug window, make sure your browser does not prevent
+			opening a pop-up window.
 		</p>
 
 		<p>
@@ -32,8 +33,11 @@
 			rendered HTML element is going to be <i>&lt;div&gt;</i>.
 		</p>
 
-		<p>The list at the bottom of the page (<i>Example output of components/ui:repeat</i>) is defined as:</p>
-		<pre>
+		<p>
+			The list at the bottom of the page (<i>Example output of components/ui:repeat</i>) is defined as:
+		</p>
+		
+		<pre class="prettyprint">
 &lt;h:panelGroup layout=&quot;block&quot; id=&quot;pageListHolder&quot;&gt;
   &lt;ui:repeat var=&quot;page&quot; value=&quot;\#{index.pages}&quot;&gt;
     &lt;h:link outcome=&quot;\#{page}&quot;&gt;\#{page}&lt;/h:link&gt;
@@ -60,11 +64,12 @@
 		</p>
 
 		<h2>How to use it for debugging</h2>
+
 		<p>When something is not shown on the screen that supposed to be
 			there, you can check if it is present within the component tree.</p>
 
 		<p>When You create conditional rendering, such as</p>
-		<pre>rendered="\#{bean.thisRendered}"</pre>
+		<pre class="prettyprint">rendered="\#{bean.thisRendered}"</pre>
 		<p>
 			You can check the value of the <i>rendered</i> attribute to make
 			sure, your rendering condition works as expected. For that, you can
@@ -79,29 +84,39 @@
 			Don't just rely on the the standard XML comment syntax.
 		</p>
 
-        <h2>Example output of components</h2>
-        
-        <h3>ui:remove</h3>
+		<h2>Example output of components</h2>
+
+		<h3>ui:remove</h3>
+		
         Below there is something within <i>&lt;ui:remove&gt;</i>not shown in the component tree
-        <ui:remove>
-            <h:outputText>This is not going to be in the component tree</h:outputText>
-        </ui:remove>
         
-        <h3>ui:fragment</h3>
+        <ui:remove>
+			<h:outputText>This is not going to be in the component tree</h:outputText>
+		</ui:remove>
+
+		<h3>ui:fragment</h3>
+        
         Below is simply not rendered, but shown in the component tree
+        
         <ui:fragment rendered="false">
             This fragment is within the component tree, but not rendered
             <h:panelGroup>in the html</h:panelGroup>
-        </ui:fragment>
-        
-        <h3>ui:repeat</h3>
+		</ui:fragment>
+
+		<h3>ui:repeat</h3>
+
 		<h:panelGroup layout="block" id="pageListHolder">
 			<ui:repeat var="page" value="#{index.pages}">
 				<h:link outcome="#{page}">#{page}</h:link>
 				<br />
 			</ui:repeat>
 		</h:panelGroup>
+
+        <h2>Source code</h2>
+        
+		<pre class="prettyprint">#{index.getSource('uiDebug.xhtml')}</pre>
 	</ui:define>
 </ui:composition>
+
 
 </html>

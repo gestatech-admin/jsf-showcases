@@ -52,41 +52,17 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
 		<finalName>jsf-showcase</finalName>
 
-		<!-- plugins -->
-			<plugins>
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.3-SNAPSHOT</version>
-
-					<configuration>
-						<!-- http port -->
-						<port>8080</port>
-						<!-- application path always starts with / -->
-						<path>/</path>
-						<!-- optional path to a context file -->
-						<contextFile>\${tomcatContextXml}</contextFile>
-						<!-- optional system propoerties you want to add -->
-						<systemProperties>
-							<appserver.base>${project.build.directory}/appserver-base</appserver.base>
-							<appserver.home>${project.build.directory}/appserver-home</appserver.home>
-							<derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
-							<java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
-						</systemProperties>
-						<!-- if you want to use test dependencies rather than only runtime -->
-						<useTestClasspath>false</useTestClasspath>
-						<!-- optional if you want to add some extra directories into the classloader -->
-						<additionalClasspathDirs>
-							<additionalClasspathDir></additionalClasspathDir>
-						</additionalClasspathDirs>
-					</configuration>
-				</plugin>
-			</plugins>
 	</build>
 
 
