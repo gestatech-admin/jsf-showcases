@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
     <ui:debug></ui:debug>
@@ -38,14 +39,7 @@
             The list at the bottom of the page (<i>Example output of
                 components/ui:repeat</i>) is defined as:
         </p>
-
-        <pre class="prettyprint">
-&lt;h:panelGroup layout=&quot;block&quot; id=&quot;pageListHolder&quot;&gt;
-  &lt;ui:repeat var=&quot;page&quot; value=&quot;\#{index.pages}&quot;&gt;
-    &lt;h:link outcome=&quot;\#{page}&quot;&gt;\#{page}&lt;/h:link&gt;
-    &lt;br /&gt;
-  &lt;/ui:repeat&gt;
-&lt;/h:panelGroup&gt;</pre>
+        <sh:code value="uiDebug.xhtml?3"/>
 
         <p>
             You can find the component in the debug view by searching
@@ -94,27 +88,35 @@
 
         <h3>ui:remove</h3>
         Below there is something within <i>&lt;ui:remove&gt;</i>not shown in the component tree
+        <!-- snippet=1 -->
         <ui:remove>
             <h:outputText>This is not going to be in the component tree</h:outputText>
         </ui:remove>
+        <!-- endsnippet -->
+        <sh:code value="uiDebug.xhtml?1"/>
 
         <h3>ui:fragment</h3>
         Below is simply not rendered, but shown in the component tree
+        
+        <!-- snippet=2 -->
         <ui:fragment rendered="false">
-           This fragment is within the component tree, but not rendered
-           <h:panelGroup>in the html</h:panelGroup>
+           This fragment is within the component tree, but not rendered.
         </ui:fragment>
+        <!-- endsnippet -->
+        <sh:code value="uiDebug.xhtml?2"/>
 
         <h3>ui:repeat</h3>
+        <!-- snippet=3 -->
         <h:panelGroup layout="block" id="pageListHolder">
             <ui:repeat var="page" value="#{index.pages}">
                 <h:link outcome="#{page}">#{page}</h:link>
                 <br />
             </ui:repeat>
         </h:panelGroup>
+        <!-- endsnippet -->
 
         <h2>Source code</h2>
-        <pre class="prettyprint">#{index.getSource('uiDebug.xhtml')}</pre>
+        <sh:code value="uiDebug.xhtml"/>
     </ui:define>
 </ui:composition>
 </html>

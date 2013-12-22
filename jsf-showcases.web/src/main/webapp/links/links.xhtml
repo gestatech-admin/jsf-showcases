@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
     <ui:define name="main">
@@ -27,66 +28,98 @@
             </p>
 
             <p>
+                <!-- snippet=1 -->
                 <h:link id="link1" value="index" outcome="/index" />
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?1"/>
             </p>
 
             <p>
+                <!-- snippet=2 -->
                 <h:link id="link2" outcome="/index">value as child text element</h:link>
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?2"/>
             </p>
 
             <p>
+                <!-- snippet=3 -->
                 <h:link id="link3" outcome="/showcase/index">broken navigation case</h:link>
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?3"/>
             </p>
 
             <p>
-                <h:link id="link4" outcome="/index">
-                    <h:outputText value="pass query parameters" />
-                    <f:param name="key" value="value"></f:param>
-                    <f:param name="key2" value="value2"></f:param>
-                </h:link>
+                <!-- snippet=4 -->
+            	<h:link id="link4" outcome="/index">
+            		<h:outputText value="pass query parameters" />
+            		<f:param name="key" value="value"></f:param>
+            		<f:param name="key2" value="value2"></f:param>
+            	</h:link>
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?4"/>
             </p>
 
             <h3>Navigation within page</h3>
             <p>
+                Use the <i>Fragment attribute</i> to navigate within page.<br/>
+                <!-- snippet=5 -->
                 <h:link id="link5" value="jump to anchor" fragment="withinPage" />
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?5"/>
             </p>
 
             <p>
+                <!-- snippet=6 -->
                 <h:link id="withinPage" />
-                anchor here
+                <!-- endsnippet -->
+                #anchor here
+                <sh:code value="links/links.xhtml?6"/>
             </p>
 
             <!-- h:outputLink -->
             <h2>&lt;h:outputLink&gt; for other websites</h2>
             <p>
-                <h:outputLink id="outputLink1" value="http://dzone.com">outputLink to dZone
-                <ui:param name="someKey" value="someValue"></ui:param>
+                If you want to navigate to the outside world<br/>
+                <!-- snippet=7 -->
+                <h:outputLink id="outputLink1" value="http://dzone.com">
+                    outputLink to dZone
+                    <ui:param name="someKey" value="someValue"></ui:param>
                 </h:outputLink>
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?7"/>
             </p>
 
             <!-- a -->
             <h2>&lt;a&gt;</h2>
             <p>
+                When you use <i>a href</i> it will not present in the component tree.
+                <!-- snippet=8 -->
                 <a id="anchor" href="/showcase/index.jsf">good old &lt;a&gt; tag</a>
+                <!-- endsnippet -->
+                <sh:code value="links/links.xhtml?8"/>
             </p>
 
             <!-- commandLink -->
             <h2>&lt;h:commandLink&gt;</h2>
+            <p>
+                CommandLink is used within <i>&lt;h:form&gt;</i> and
+                creates a <i>POST</i> request. Notice that the URL
+                does not change, because <u>every forms makes a
+                    request to the same page it is defined</u>
+            </p>
+            <!-- snippet=9 -->
             <h:form id="linkForm">
-                <p>
-                    CommandLink is used within <i>&lt;h:form&gt;</i> and
-                    creates a <i>POST</i> request. Notice that the URL
-                    does not change, because <u>every forms makes a
-                        request to the same page it is defined</u>
-                    <h:commandLink
-                        action="#{commandLinkExample.doSomethingPermanent}">commandLink back to index</h:commandLink>
-                </p>
+                    <h:commandLink 
+                    action="#{commandLinkExample.doSomethingPermanent}">commandLink back to index</h:commandLink>
             </h:form>
+            <!-- endsnippet -->
+            <sh:code value="links/links.xhtml?9"/>
+            <sh:code value="CommandLinkExample.java?1"/>
         </h:panelGroup>
 
 
         <h2>Source code</h2>
-        <pre class="prettyprint">#{index.getSource('links/links.xhtml')}</pre>
+        <sh:code value="links/links.xhtml"/>
     </ui:define>
 </ui:composition>
 </html>

@@ -3,6 +3,7 @@ package hu.palkonyves.jsfshowcase;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+// snippet=1
 @Named
 @RequestScoped
 public class CommandLinkExample {
@@ -17,3 +18,4 @@ public class CommandLinkExample {
         return "/index";
     }
 }
+// endsnippet
