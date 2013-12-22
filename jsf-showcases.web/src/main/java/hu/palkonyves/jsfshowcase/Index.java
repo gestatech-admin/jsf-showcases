@@ -56,7 +56,7 @@ public class Index {
                 try {
                     return inputStreamToString(resourceAsStream);
                 } catch (IOException e) {
-                    throw new RuntimeException("could not retrieve source", e);
+                    throw new RuntimeException("could not retrieve source ", e);
                 }
             }
         }
