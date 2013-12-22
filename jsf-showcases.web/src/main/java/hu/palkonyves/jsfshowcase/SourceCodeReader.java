@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +28,13 @@ public class SourceCodeReader {
      */
     private Set<String> sourceExtensions;
 
+    /**
+     * list of sources with {@link #sourceExtensions} postfixes
+     */
+    private List<String> sources;
+
+    private Map<String, String> pageCache = new HashMap<String, String>();
+
     {
         Set<String> extensions = new HashSet<String>();
         extensions.add(".xhtml");
@@ -34,11 +43,6 @@ public class SourceCodeReader {
 
         sourceExtensions = Collections.unmodifiableSet(extensions);
     }
-
-    /**
-     * list of sources with {@link #sourceExtensions} postfixes
-     */
-    private List<String> sources;
 
     /**
      * Retrieve .xhtml and .java files on @PostConstruct
@@ -115,15 +119,27 @@ public class SourceCodeReader {
     public String getFileSource(String pageName) {
 
         String pageUrl = getSourceFilePath(pageName);
+
+        // retrieve cached source if any
+        String cachedSource = pageCache.get(pageUrl);
+        if (cachedSource != null) {
+            return cachedSource;
+        }
+
         ExternalContext externalContext = getExternalContext();
         InputStream resourceAsStream = externalContext.getResourceAsStream(pageUrl);
         try {
-            return inputStreamToString(resourceAsStream);
+            String source = inputStreamToString(resourceAsStream);
+
+            // put into cache and return
+            pageCache.put(pageUrl, source);
+            return source;
         } catch (IOException e) {
             throw new RuntimeException("could not retrieve source of '"
                     + pageUrl + "'", e);
         }
     }
+
 
     /**
      * @param file
