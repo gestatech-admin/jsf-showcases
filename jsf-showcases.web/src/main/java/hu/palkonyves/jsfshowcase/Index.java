@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -22,8 +20,10 @@ import org.apache.commons.io.IOUtils;
 public class Index {
 
     private List<String> pages;
-    private Map<String, String> snippetToPages = new HashMap<String, String>();
 
+    /**
+     * Retrieve .xhtml and .java files on @PostConstruct
+     */
     @PostConstruct
     protected void fetchPages() {
         ExternalContext externalContext = getExternalContext();
@@ -33,10 +33,37 @@ public class Index {
         pages = result;
     }
 
+    /**
+     * @return FacesContext#getExternalSource()
+     */
     private ExternalContext getExternalContext() {
         FacesContext facesCtx = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesCtx.getExternalContext();
         return externalContext;
+    }
+
+    /**
+     * recursively extract .xhtml and .java pages from any directories
+     * 
+     * @param externalContext
+     * @param pathPrefix
+     * @param result
+     */
+    private void extractSources(ExternalContext externalContext,
+            String pathPrefix, List<String> result) {
+
+        Set<String> resourcePaths = externalContext
+                .getResourcePaths(pathPrefix);
+
+        for (String path : resourcePaths) {
+            if (path.endsWith(".xhtml") || path.endsWith(".java")) {
+
+                result.add(path);
+            } else if (path.endsWith("/")) {
+
+                extractSources(externalContext, path, result);
+            }
+        }
     }
 
     /**
@@ -73,34 +100,6 @@ public class Index {
 
     }
 
-    /**
-     * recursively extracth .xhtml pages from any directories
-     * 
-     * @param externalContext
-     * @param pathPrefix
-     * @param result
-     */
-    private void extractSources(ExternalContext externalContext,
-            String pathPrefix, List<String> result) {
-
-        Set<String> resourcePaths = externalContext
-                .getResourcePaths(pathPrefix);
-
-        for (String path : resourcePaths) {
-
-            if (path.endsWith(".xhtml") || path.endsWith(".java")) {
-                // if xhtml, append
-
-                result.add(path);
-            } else if (path.endsWith("/")) {
-                // if directory, recurse
-
-                extractSources(externalContext, path, result);
-            }
-
-        }
-    }
-
     private static enum SnippetState {
         WITHIN, OUT
     }
@@ -114,13 +113,12 @@ public class Index {
     public String getSnippet(String key) {
         String[] key0 = snippet(key);
         String pageName = key0[0];
-        String number = null;
 
-        if (key0.length > 1) {
-            number = key0[1];
-        } else {
+        if (key0.length < 2) {
             return getSource(pageName);
         }
+
+        String number = key0[1];
 
         SnippetState withinSnippet = SnippetState.OUT;
         String startPattern = getStartPattern(pageName) + number;
