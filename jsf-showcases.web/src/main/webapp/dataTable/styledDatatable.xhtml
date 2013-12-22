@@ -4,7 +4,8 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
 <ui:define name="main">
@@ -12,7 +13,7 @@
         .bananaTable .yellow {background-color:yellow;}
         .bananaTable .brown {background-color:brown;}
     </style>
-    <h:dataTable styleClass="bananaTable" value="#{styledDatatable.bananas}" var="banana" rowClasses="#{styledDatatable.bananaRowClasses}">
+    <h:dataTable styleClass="bananaTable" value="#{styledDatatable.bananas}" var="banana" rowClasses="#{fn:join(styledDatatable.bananaRowClasses, ',')}">
         <h:column>
             <f:facet name="header">
                 Name
@@ -35,6 +36,8 @@
         </h:column>
     
     </h:dataTable>
+    <sh:code value="styledDatatable.xhtml" />
+    <sh:code value="StyledDatatable.java" />
     </ui:define>
 </ui:composition>
 

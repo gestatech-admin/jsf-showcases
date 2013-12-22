@@ -18,23 +18,23 @@ public class StyledDatatable {
     BananaStore store;
 
     public List<Banana> getBananas() {
-	return store.getAllBanana();
+        return store.getAllBanana();
     }
 
-    public List<String> getBananaRowClasses() {
-	List<String> result = new ArrayList<String>();
-	for (Banana b : getBananas()) {
-	    String rowClass = getRowClass(b);
-	    result.add(rowClass);
-	}
+    public String[] getBananaRowClasses() {
+        List<String> result = new ArrayList<String>();
+        for (Banana b : getBananas()) {
+            String rowClass = getRowClass(b);
+            result.add(rowClass);
+        }
 
-	return result;
+        return result.toArray(new String[result.size()]);
     }
 
     private String getRowClass(Banana b) {
-	if (b.getYellowness() >= b.getBrowness()) {
-	    return "yellow";
-	}
-	return "brown";
+        if (b.getYellowness() >= b.getBrowness()) {
+            return "yellow";
+        }
+        return "brown";
     }
 }

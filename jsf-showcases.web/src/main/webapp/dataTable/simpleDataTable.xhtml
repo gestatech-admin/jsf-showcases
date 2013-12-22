@@ -3,34 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
-<ui:define name="main">
-    <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
-        <h:column>
-            <f:facet name="header">
-                Name
-            </f:facet>
-            #{banana.name}
-        </h:column>
-        
-        <h:column>
-            <f:facet name="header">
-                Yellowness
-            </f:facet>
-            #{banana.yellowness}
-        </h:column>
-        
-        <h:column>
-            <f:facet name="header">
-                Browness
-            </f:facet>
-            #{banana.browness}
-        </h:column>
-    
-    </h:dataTable>
+    <ui:define name="main">
+        <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
+            <h:column>
+                <f:facet name="header">
+                    Name
+                </f:facet>
+                #{banana.name}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Yellowness
+                </f:facet>
+                #{banana.yellowness}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Browness
+                </f:facet>
+                #{banana.browness}
+            </h:column>
+        </h:dataTable>
+
+        <sh:code value="simpleDataTable.xhtml" />
+        <sh:code value="SimpleDatatable.java" />
     </ui:define>
 </ui:composition>
-
 </html>
