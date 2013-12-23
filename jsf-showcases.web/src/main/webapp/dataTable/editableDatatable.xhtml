@@ -3,10 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
 <ui:define name="main">
+    <h1>Editable datatable</h1>
     <h:form id="newBananaForm">
         <h:outputLabel value="Name" for="newBananaName"/>
         <h:inputText id="newBananaName" value="#{datatableInsert.newBanana.name}"/>
@@ -52,6 +54,13 @@
 	    
 	    </h:dataTable>
     </h:form>
+    
+    <h1 class="source">Source code</h1>
+        <sh:code value="editableDatatable.xhtml" showSource="#{true}" />
+        
+        <sh:code value="EditableDatatable.java" showSource="#{true}" />
+        
+        <sh:code value="SimpleDatatable.java" showSource="#{true}" />
     </ui:define>
 </ui:composition>
 

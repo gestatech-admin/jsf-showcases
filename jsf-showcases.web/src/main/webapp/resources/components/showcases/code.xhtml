@@ -8,9 +8,12 @@
 
 <composite:interface>
     <composite:attribute name="value" />
+    <composite:attribute name="showSource" default="false"
+        type="java.lang.Boolean" />
 </composite:interface>
 
 <composite:implementation>
-<pre class="prettyprint">#{sourceCodeReader.getSnippet(cc.attrs.value)}</pre>
+    <h:panelGroup rendered="#{cc.attrs.showSource}" styleClass="filename">#{sourceCodeReader.getFileName(cc.attrs.value)}</h:panelGroup>
+    <pre class="prettyprint">#{sourceCodeReader.getSnippet(cc.attrs.value)}</pre>
 </composite:implementation>
 </html>

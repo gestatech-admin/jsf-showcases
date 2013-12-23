@@ -1,1 +1,17 @@
 @CHARSET "UTF-8";
+
+h1.source {
+	border-top: solid grey thin;
+	margin-top: 60px;
+}
+
+span.filename {
+	font-size: 1.5em;
+	margin: 20px 5px 5px 5px;
+	display: block;
+}
+
+a.pagination {
+	font-weight: bold;
+	padding: 5px;
+}

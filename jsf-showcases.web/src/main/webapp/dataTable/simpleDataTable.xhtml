@@ -8,6 +8,7 @@
 
 <ui:composition template="/resources/templates/t_main.xhtml">
     <ui:define name="main">
+        <h1>Simple Datatable</h1>
         <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
             <h:column>
                 <f:facet name="header">
@@ -31,8 +32,10 @@
             </h:column>
         </h:dataTable>
 
-        <sh:code value="simpleDataTable.xhtml" />
-        <sh:code value="SimpleDatatable.java" />
+        <h1 class="source">Source code</h1>
+        <sh:code value="simpleDataTable.xhtml" showSource="#{true}" />
+        
+        <sh:code value="SimpleDatatable.java" showSource="#{true}" />
     </ui:define>
 </ui:composition>
 </html>

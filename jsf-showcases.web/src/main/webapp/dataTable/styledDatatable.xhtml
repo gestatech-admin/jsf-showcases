@@ -9,6 +9,7 @@
 
 <ui:composition template="/resources/templates/t_main.xhtml">
 <ui:define name="main">
+    <h1>Styled Datatable</h1>
     <style>
         .bananaTable .yellow {background-color:yellow;}
         .bananaTable .brown {background-color:brown;}
@@ -36,8 +37,11 @@
         </h:column>
     
     </h:dataTable>
-    <sh:code value="styledDatatable.xhtml" />
-    <sh:code value="StyledDatatable.java" />
+    
+    <h1 class="source">Source code</h1>
+    <sh:code value="styledDatatable.xhtml" showSource="#{true}" />
+    
+    <sh:code value="StyledDatatable.java" showSource="#{true}" />
     </ui:define>
 </ui:composition>
 

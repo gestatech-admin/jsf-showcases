@@ -3,47 +3,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
-<ui:define name="main">
+    <ui:define name="main">
+        <h1>Datatable insert</h1>
+        <h:form id="newBananaForm">
+            <h:outputLabel value="Name" for="newBananaName" />
+            <h:inputText id="newBananaName"
+                value="#{datatableInsert.newBanana.name}" />
 
-    <h:form id="newBananaForm">
-        <h:outputLabel value="Name" for="newBananaName"/>
-        <h:inputText id="newBananaName" value="#{datatableInsert.newBanana.name}"/>
-        
-        <h:outputLabel value="Yellowness" for="newBananaYellowness"/>
-        <h:inputText id="newBananaYellowness" value="#{datatableInsert.newBanana.yellowness}"/>
-        
-        <h:outputLabel value="Browness" for="newBananaBrowness"/>
-        <h:inputText id="newBananaBrowness" value="#{datatableInsert.newBanana.browness}"/>
-        
-        <h:commandButton value="Add" action="#{datatableInsert.createBananaAction}" />
-    </h:form>
-    
-    <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
-        <h:column>
-            <f:facet name="header">
+            <h:outputLabel value="Yellowness" for="newBananaYellowness" />
+            <h:inputText id="newBananaYellowness"
+                value="#{datatableInsert.newBanana.yellowness}" />
+
+            <h:outputLabel value="Browness" for="newBananaBrowness" />
+            <h:inputText id="newBananaBrowness"
+                value="#{datatableInsert.newBanana.browness}" />
+
+            <h:commandButton value="Add"
+                action="#{datatableInsert.createBananaAction}" />
+        </h:form>
+
+        <h:dataTable value="#{simpleDatatable.bananas}" var="banana">
+            <h:column>
+                <f:facet name="header">
                 Name
             </f:facet>
             #{banana.name}
         </h:column>
-        
-        <h:column>
-            <f:facet name="header">
+
+            <h:column>
+                <f:facet name="header">
                 Yellowness
             </f:facet>
             #{banana.yellowness}
         </h:column>
-        
-        <h:column>
-            <f:facet name="header">
+
+            <h:column>
+                <f:facet name="header">
                 Browness
             </f:facet>
             #{banana.browness}
         </h:column>
-    
-    </h:dataTable>
+
+        </h:dataTable>
+
+
+        <h1 class="source">Source code</h1>
+        <sh:code value="dataTableInsert.xhtml" showSource="#{true}" />
+
+        <sh:code value="DatatableInsert.java" showSource="#{true}" />
+
+        <sh:code value="SimpleDatatable.java" showSource="#{true}" />
     </ui:define>
 </ui:composition>
 
