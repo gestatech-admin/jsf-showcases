@@ -15,23 +15,39 @@ public class PaginatedDatatable {
 
     @Inject
     BananaStore store;
+    private int currentPage = 1;
+    private int recordsPerPage = 2;
 
-    private Paginator p = new Paginator(2, 1, 1);
+    private Paginator paginator = new Paginator(currentPage, recordsPerPage, 0);
 
     public List<Banana> getBananas() {
-	int countBananas = store.countBananas();
-	int recordsPerPage = p.getRecordsPerPage();
-	p.setMaxPage(countBananas / recordsPerPage + 1);
-	int offset = (p.getCurrentPage() - 1) * recordsPerPage;
-	return store.getBananas(offset, recordsPerPage);
+        paginator.setCurrentPage(currentPage);
+        paginator.setRecordsPerPage(recordsPerPage);
+
+        int countBananas = store.countBananas();
+        int recordsPerPage = paginator.getRecordsPerPage();
+        paginator.setRecords(countBananas);
+        int offset = (paginator.getCurrentPage() - 1) * recordsPerPage;
+        return store.getBananas(offset, recordsPerPage);
     }
 
     public Paginator getP() {
-	return p;
+        return paginator;
     }
 
-    public void setP(Paginator p) {
-	this.p = p;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getRecordsPerPage() {
+        return recordsPerPage;
+    }
+
+    public void setRecordsPerPage(int recordsPerPage) {
+        this.recordsPerPage = recordsPerPage;
+    }
 }

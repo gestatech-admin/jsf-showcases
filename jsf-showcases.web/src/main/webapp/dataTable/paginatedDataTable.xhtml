@@ -3,51 +3,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
-<f:metadata>
-    <f:viewParam name="currentPage" value="#{paginatedDatatable.p.currentPage}" />
-    <f:viewParam name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
-</f:metadata>
-<ui:define name="main">
-    <h:dataTable value="#{paginatedDatatable.bananas}" var="banana">
-        <h:column>
-            <f:facet name="header">
+    <f:metadata>
+        <f:viewParam name="currentPage"
+            value="#{paginatedDatatable.currentPage}" />
+        <f:viewParam name="recordsPerPage"
+            value="#{paginatedDatatable.recordsPerPage}" />
+    </f:metadata>
+    <ui:define name="main">
+        <h1>Paginated Datatable</h1>
+        <h:dataTable value="#{paginatedDatatable.bananas}" var="banana">
+            <h:column>
+                <f:facet name="header">
                 Name
             </f:facet>
             #{banana.name}
         </h:column>
-        
-        <h:column>
-            <f:facet name="header">
+
+            <h:column>
+                <f:facet name="header">
                 Yellowness
             </f:facet>
             #{banana.yellowness}
         </h:column>
-        
-        <h:column>
-            <f:facet name="header">
+
+            <h:column>
+                <f:facet name="header">
                 Browness
             </f:facet>
             #{banana.browness}
         </h:column>
-    </h:dataTable>
-    <h:link value="&lt;">
-            <f:param name="currentPage" value="#{paginatedDatatable.p.previousPageNum}" />
-            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+        </h:dataTable>
+        <h:link value="&lt;" styleClass="pagination">
+            <f:param name="currentPage"
+                value="#{paginatedDatatable.p.previousPageNum}" />
+            <f:param name="recordsPerPage"
+                value="#{paginatedDatatable.p.recordsPerPage}" />
         </h:link>
-    <ui:repeat value="#{paginatedDatatable.p.pages}" var="pageNum">
-        <h:link value="#{pageNumn}">
-            <f:param name="currentPage" value="#{pageNum}" />
-            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
+        <ui:repeat value="#{paginatedDatatable.p.pages}" var="pageNum">
+            <h:link value="#{pageNum}" styleClass="pagination">
+                <f:param name="currentPage" value="#{pageNum}" />
+                <f:param name="recordsPerPage"
+                    value="#{paginatedDatatable.p.recordsPerPage}" />
+            </h:link>
+        </ui:repeat>
+        <h:link value="&gt;" styleClass="pagination">
+            <f:param name="currentPage"
+                value="#{paginatedDatatable.p.nextPageNum}" />
+            <f:param name="recordsPerPage"
+                value="#{paginatedDatatable.p.recordsPerPage}" />
         </h:link>
-    </ui:repeat>
-    <h:link value="&gt;">
-            <f:param name="currentPage" value="#{paginatedDatatable.p.nextPageNum}" />
-            <f:param name="recordsPerPage" value="#{paginatedDatatable.p.recordsPerPage}" />
-        </h:link>
-        </ui:define>
+
+        <h1 class="source">Source code</h1>
+        <sh:code value="paginatedDataTable.xhtml" showSource="#{true}" />
+
+        <sh:code value="PaginatedDatatable.java" showSource="#{true}" />
+
+        <sh:code value="Paginator.java" showSource="#{true}" />
+    </ui:define>
 </ui:composition>
 
 </html>

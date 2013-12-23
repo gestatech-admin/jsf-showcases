@@ -9,75 +9,75 @@ public class Paginator {
     private int currentPage = 1;
     private int maxPage = 1;
 
-    public Paginator(int recordsPerPage, int currentPage, int maxPage) {
-	super();
-	this.recordsPerPage = recordsPerPage;
-	this.currentPage = currentPage;
-	this.maxPage = maxPage;
+    public Paginator(int recordsPerPage, int currentPage, int records) {
+        super();
+        this.recordsPerPage = recordsPerPage;
+        this.currentPage = currentPage;
+        maxPage = (int) Math.ceil(records / ((double) recordsPerPage));
     }
 
     public int getRecordsPerPage() {
-	return recordsPerPage;
+        return recordsPerPage;
     }
 
     public void setRecordsPerPage(int recordsPerPage) {
-	this.recordsPerPage = recordsPerPage;
+        this.recordsPerPage = recordsPerPage;
     }
 
     public int getCurrentPage() {
-	return currentPage;
+        return currentPage;
     }
 
     public void setCurrentPage(int currentPage) {
-	if (currentPage > maxPage) {
-	    this.currentPage = maxPage;
-	    return;
-	}
-	if (currentPage < 1) {
-	    this.currentPage = 1;
-	    return;
-	}
-	this.currentPage = currentPage;
+        if (currentPage > maxPage) {
+            this.currentPage = maxPage;
+            return;
+        }
+        if (currentPage < 1) {
+            this.currentPage = 1;
+            return;
+        }
+        this.currentPage = currentPage;
     }
 
     public int getMaxPage() {
-	return maxPage;
+        return maxPage;
     }
 
-    public void setMaxPage(int maxPage) {
-	this.maxPage = maxPage;
+    public void setRecords(int records) {
+        maxPage = (int) Math.ceil(records / ((double) recordsPerPage));
     }
 
     public boolean isHasNext() {
-	return currentPage < maxPage;
+        return currentPage <= maxPage;
     }
 
     public boolean isHasPrevious() {
-	return currentPage > 1;
+        return currentPage >= 1;
     }
 
     public int next() {
-	return currentPage = getNextPageNum();
+        return currentPage = getNextPageNum();
     }
 
     public int previous() {
-	return currentPage = getPreviousPageNum();
+        return currentPage = getPreviousPageNum();
     }
 
     public int getPreviousPageNum() {
-	return isHasPrevious() ? currentPage - 1 : currentPage;
+        return isHasPrevious() ? currentPage - 1 : currentPage;
     }
 
     public int getNextPageNum() {
-	return isHasPrevious() ? currentPage + 1 : currentPage;
+        return isHasNext() ? currentPage + 1 : currentPage;
     }
 
     public List<Integer> getPages() {
-	List<Integer> result = new ArrayList<Integer>(maxPage);
-	for (int i = 1; i <= maxPage; i++) {
-	    result.add(i);
-	}
-	return result;
+        List<Integer> result = new ArrayList<Integer>(maxPage);
+        for (int i = 1; i <= maxPage; i++) {
+            result.add(i);
+        }
+        return result;
     }
 
 }

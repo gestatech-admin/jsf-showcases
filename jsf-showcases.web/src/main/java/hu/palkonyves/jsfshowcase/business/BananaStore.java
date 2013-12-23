@@ -19,37 +19,39 @@ public class BananaStore {
 
     @PostConstruct
     public void postConstruct() {
-	synchronized (bananas) {
-	    createBanana(new Banana("joe", 0, 100));
-	    createBanana(new Banana("bobby", 10, 90));
-	    createBanana(new Banana("steve", 100, 0));
-	    createBanana(new Banana("beethoven", 20, 80));
-	}
+        synchronized (bananas) {
+            createBanana(new Banana("joe", 0, 100));
+            createBanana(new Banana("bobby", 10, 90));
+            createBanana(new Banana("steve", 100, 0));
+            createBanana(new Banana("beethoven", 20, 80));
+        }
     }
 
     public Banana createBanana(Banana banana) {
-	Banana newBanana = new Banana(banana.getName(), banana.getYellowness(),
-		banana.getBrowness());
-	newBanana.setId(nextId.getAndIncrement());
-	bananas.put(newBanana.id, newBanana);
-	return newBanana;
+        Banana newBanana = new Banana(banana.getName(), banana.getYellowness(),
+                banana.getBrowness());
+        newBanana.setId(nextId.getAndIncrement());
+        bananas.put(newBanana.id, newBanana);
+        return newBanana;
     }
 
     public List<Banana> getAllBanana() {
-	return new ArrayList<Banana>(bananas.values());
+        return new ArrayList<Banana>(bananas.values());
     }
 
     public List<Banana> getBananas(int offset, int count) {
-	ArrayList<Banana> allBananas = new ArrayList<Banana>(bananas.values());
-	return allBananas.subList(offset, offset + count);
+        ArrayList<Banana> allBananas = new ArrayList<Banana>(bananas.values());
+        int to = offset + count > allBananas.size() ? allBananas.size()
+                : offset + count;
+        return allBananas.subList(offset, to);
     }
 
     public int countBananas() {
-	return bananas.size();
+        return bananas.size();
     }
 
     public Banana changeBanana(Banana banana) {
-	bananas.put(banana.getId(), banana);
-	return banana;
+        bananas.put(banana.getId(), banana);
+        return banana;
     }
 }
