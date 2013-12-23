@@ -181,13 +181,6 @@ public class SourceCodeReader {
     private static final String SNIPPET_START_JAVA = "// snippet=";
     private static final String SNIPPET_END_JAVA = "// endsnippet";
 
-    public String getFileName(String key) {
-        String[] key0 = snippet(key);
-        String pageName = key0[0];
-
-        return getSourceFilePath(pageName);
-    }
-
     /**
      * Returns a code snippet referenced by path/to/file.java?2
      * 
