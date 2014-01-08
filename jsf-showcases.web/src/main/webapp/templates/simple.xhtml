@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+
+<ui:composition template="/resources/templates/simpleTemplate.xhtml">
+    <ui:define name="simpleTemplateMain">
+        <h1>Simple template</h1>
+        <p>
+            The solid gray border around the text is defined in <i>simpleTemplate.xhtml</i>.
+            With the &lt;ui:define&gt; tag, you can tell
+            simpleTemplate.xhtml what to present in the placeholder
+            specified by the <i>name</i> attribute
+        </p>
+
+        <h1 class="source">Source code</h1>
+        <sh:code value="/resources/templates/simpleTemplate.xhtml" showSource="#{true}" />
+        <sh:code value="/templates/simple.xhtml" showSource="#{true}" />
+    </ui:define>
+</ui:composition>
+</html>
