@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+<!-- http://jugojava.blogspot.hu/2011/09/jsf-composite-component-binding-to.html -->
+<!-- cc interface, i.e public attributes -->
+<composite:interface componentType="autoCompleteInput"
+    shortDescription="Auto complete input field that uses ajax">
+    <composite:attribute name="value" required="true" />
+    <composite:attribute name="autoCompleteMethod" required="true"
+        method-signature="java.util.Collection autoComplete(java.lang.String)" />
+    
+    <composite:attribute name="event" required="false" default="change" />
+    <composite:attribute name="ajaxExecute" required="false" default="@this" />
+    <composite:attribute name="ajaxRender" required="false" default="#{cc.clientId}" />
+</composite:interface>
+
+<!-- cc implementation, i.e. usage of attributes -->
+<composite:implementation>
+    <h:inputText id="value" value="#{cc.attrs.value}" binding="#{cc.value}">
+        <f:ajax execute="#{cc.attrs.ajaxExecute}" render="#{cc.attrs.ajaxRender}"
+            event="#{cc.attrs.event}" listener="#{cc.autoCompleteListener}" />
+    </h:inputText>
+    <h:panelGroup id="hints" rendered="#{not empty cc.hints}">
+        <ul>
+            <ui:repeat value="#{cc.hints}" var="hint">
+                <li>#{hint}</li>
+            </ui:repeat>
+        </ul>
+    </h:panelGroup>
+</composite:implementation>
+</html>

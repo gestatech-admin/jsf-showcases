@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class DynamicTemplateExample {
+public class DynamicTemplateExample implements java.io.Serializable {
 
     private static List<String> templates;
     private String selectedTemplate = templates.get(0);

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+<!-- cc interface, i.e public attributes -->
+<composite:interface>
+    <!-- Any Expression Language expression 
+        that is referenced with #{cc.attrs.value} 
+    -->
+    <composite:attribute name="value" required="true" />
+    <composite:attribute name="buttonText" default="search" />
+    <composite:attribute name="resultSet" required="true" />
+
+    <!-- 
+        Attribute that 'binds' a value to an attribute
+        of a specific component. In this case the action
+        attribute of the search button.
+    -->
+    <composite:attribute name="searchAction"
+        method-signature="java.lang.Object action()"
+        targets="searchButton" targetAttributeName="value" />
+
+    <!-- Facet that renders each result row -->
+    <composite:facet name="resultRow" required="true" />
+    <composite:attribute name="resultRowVar" required="true" />
+</composite:interface>
+
+<!-- cc implementation, i.e. usage of attributes -->
+<composite:implementation>
+    <h:panelGrid columns="2">
+        <h:inputText id="value" value="#{cc.attrs.value}" />
+
+        <!-- implicitly defined action by the 'searchAction' attribute -->
+        <h:commandButton id="searchButton"
+            value="#{cc.attrs.buttonText}" />
+    </h:panelGrid>
+
+    <table>
+        <ui:repeat value="#{cc.attrs.resultSet}" var="resultRow">
+            <tr>
+                <!--  render facet for each row -->
+                <composite:renderFacet name="resultRow">
+                    <ui:param name="#{cc.attrs.rowVar}"
+                        value="#{resultRow}" />
+                </composite:renderFacet>
+            </tr>
+        </ui:repeat>
+    </table>
+</composite:implementation>
+</html>
