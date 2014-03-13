@@ -13,6 +13,43 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+		<containerVersion>jetty8x</containerVersion>
+
+		<!-- Jetty download url contains query parameters after the '?' and the 
+			plugin doesn't seem to like it -->
+		<containerUrl>file:///c:\Users\Pali\Downloads\jetty-distribution-8.1.14.v20131031.zip</containerUrl>
+	</properties>
+
+	<!-- for cargo glassfish plugin -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>codehaus-snapshots</id>
+			<name>Codehaus Snapshots</name>
+			<url>http://nexus.codehaus.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>codehaus-snapshots</id>
+			<name>Codehaus Snapshots</name>
+			<url>http://nexus.codehaus.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -21,13 +58,19 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
-            <scope>compile</scope>
-        </dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.web</groupId> -->
+		<!-- <artifactId>el-impl</artifactId> -->
+		<!-- <version>2.2</version> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
 		<!-- tomcat -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
 			<version>1.1.10.Final</version>
@@ -39,28 +82,25 @@
 			<version>3.1.0.GA</version>
 			<scope>runtime</scope>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<version>2.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.1.2</version>
 			<scope>runtime</scope>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
@@ -94,19 +134,38 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <wtpapplicationxml>true</wtpapplicationxml>
-                    <wtpversion>2.0</wtpversion>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <additionalProjectFacets>
-                        <jst.web>3.0</jst.web>
-                        <jst.jsf>2.1</jst.jsf>
-                    </additionalProjectFacets>
-                </configuration>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<additionalProjectFacets>
+						<jst.web>3.0</jst.web>
+						<jst.jsf>2.1</jst.jsf>
+					</additionalProjectFacets>
+				</configuration>
+			</plugin>
+
+
+
+
+			<!-- Glassfish integration -->
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.4.8-SNAPSHOT</version>
+				<configuration>
+					<container>
+						<containerId>${containerVersion}</containerId>
+						<zipUrlInstaller>
+							<url>${containerUrl}</url>
+						</zipUrlInstaller>
+					</container>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
