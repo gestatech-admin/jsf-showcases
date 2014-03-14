@@ -146,7 +146,7 @@ public class SourceCodeReader {
 	 * @param file
 	 * @return absolute path of file with name
 	 */
-	private String getSourceFilePath(String file) {
+	public String getSourceFilePath(String file) {
 		for (String pageUrl : sources) {
 			if (pageUrl.endsWith(file)) {
 				return pageUrl;

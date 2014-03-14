@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+    <ui:define name="main">
+        <h1>Code composite component</h1>
+
+        <p>
+            <h:link value="CodeSnippet component"
+                outcome="customComponent" /> implemented with a <i>composite component</i>
+        </p>
+
+        <!-- snippet=1 -->
+        <sh:code file="showSourceCompositeComponent.xhtml" snippet="1" />
+        <!-- endsnippet -->
+
+        <p>
+            Below is the source code for the <i>&lt;sh:codet&gt;</i>
+            composite component
+        </p>
+
+        <h1 class="source">Source code</h1>
+        <sh:code file="code.xhtml" showSource="true" />
+
+        <sh:code file="SourceCodeReader.java"
+            showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>
