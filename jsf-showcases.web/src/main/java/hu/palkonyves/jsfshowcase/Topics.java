@@ -1,5 +1,6 @@
 package hu.palkonyves.jsfshowcase;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,79 +15,83 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Topics {
 
-    private static final Pattern H1_PATTERN = Pattern
-            .compile(".*\\<h1\\>(.*)\\</h1\\>.*");
+	private static final Pattern H1_PATTERN = Pattern
+			.compile(".*\\<h1\\>(.*)\\</h1\\>.*");
 
-    @Inject
-    SourceCodeReader sourceCodeReader;
+	@Inject
+	SourceCodeReader sourceCodeReader;
 
-    private List<String[]> topicsCache;
+	private List<String[]> topicsCache;
 
-    @PostConstruct
-    void init() {
-        topicsCache = fetchTopics();
-    }
+	@PostConstruct
+	void init() {
+		topicsCache = fetchTopics();
+	}
 
-    /**
-     * @return String[]{ pageUrl, topic } from cache
-     */
-    public List<String[]> getTopics() {
-        return topicsCache;
-    }
+	/**
+	 * @return String[]{ pageUrl, topic } from cache
+	 */
+	public List<String[]> getTopics() {
+		return topicsCache;
+	}
 
-    /**
-     * @return String[]{ pageUrl, topic }
-     */
-    private List<String[]> fetchTopics() {
-        List<String[]> result = new LinkedList<String[]>();
+	/**
+	 * @return String[]{ pageUrl, topic }
+	 */
+	private List<String[]> fetchTopics() {
+		List<String[]> result = new LinkedList<String[]>();
 
-        for (String pageUrl : getXhtmlPages()) {
-            String source = sourceCodeReader.getFileSource(pageUrl);
-            String topic = getTopic(source);
-            System.out.println(topic);
+		for (String pageUrl : getXhtmlPages()) {
+			String source;
 
-            if (topic != null) {
-                String[] resultLink = new String[] { pageUrl, topic };
-                result.add(resultLink);
-            }
-        }
+			try {
+				source = sourceCodeReader.getFileSource(pageUrl);
+				String topic = getTopic(source);
+				if (topic != null) {
+					String[] resultLink = new String[] { pageUrl, topic };
+					result.add(resultLink);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-        return result;
-    }
+		}
 
+		return result;
+	}
 
-    /**
-     * Impl: Finds the first &lt;h1&gt; tag on the page and returns it
-     * 
-     * @param source
-     * @return
-     */
-    private String getTopic(String source) {
+	/**
+	 * Impl: Finds the first &lt;h1&gt; tag on the page and returns it
+	 * 
+	 * @param source
+	 * @return
+	 */
+	private String getTopic(String source) {
 
-        String[] lines = source.split("\\r?\\n");
-        for (String line : lines) {
-            Matcher h1Matcher = H1_PATTERN.matcher(line);
-            if (h1Matcher.matches()) {
-                return h1Matcher.group(1);
-            }
-        }
+		String[] lines = source.split("\\r?\\n");
+		for (String line : lines) {
+			Matcher h1Matcher = H1_PATTERN.matcher(line);
+			if (h1Matcher.matches()) {
+				return h1Matcher.group(1);
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Retrieve only pages ending to .xhtml
-     * 
-     * @return
-     */
-    private List<String> getXhtmlPages() {
-        List<String> result = new LinkedList<String>();
-        for (String pageUrl : sourceCodeReader.getPages()) {
-            if (pageUrl.endsWith(".xhtml")) {
-                result.add(pageUrl);
-            }
-        }
+	/**
+	 * Retrieve only pages ending to .xhtml
+	 * 
+	 * @return
+	 */
+	private List<String> getXhtmlPages() {
+		List<String> result = new LinkedList<String>();
+		for (String pageUrl : sourceCodeReader.getPages()) {
+			if (pageUrl.endsWith(".xhtml")) {
+				result.add(pageUrl);
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 }

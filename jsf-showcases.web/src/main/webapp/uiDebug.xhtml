@@ -4,7 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
     <ui:debug></ui:debug>
@@ -39,7 +39,7 @@
             The list at the bottom of the page (<i>Example output of
                 components/ui:repeat</i>) is defined as:
         </p>
-        <sh:code value="uiDebug.xhtml?3"/>
+        <sh:codeSnippet file="uiDebug.xhtml" snippet="3" />
 
         <p>
             You can find the component in the debug view by searching
@@ -93,7 +93,7 @@
             <h:outputText>This is not going to be in the component tree</h:outputText>
         </ui:remove>
         <!-- endsnippet -->
-        <sh:code value="uiDebug.xhtml?1"/>
+        <sh:codeSnippet file="uiDebug.xhtml" snippet="1" />
 
         <h3>ui:fragment</h3>
         Below is simply not rendered, but shown in the component tree
@@ -103,7 +103,7 @@
            This fragment is within the component tree, but not rendered.
         </ui:fragment>
         <!-- endsnippet -->
-        <sh:code value="uiDebug.xhtml?2"/>
+        <sh:codeSnippet file="uiDebug.xhtml" snippet="2" />
 
         <h3>ui:repeat</h3>
         <!-- snippet=3 -->
@@ -116,7 +116,7 @@
         <!-- endsnippet -->
 
         <h1 class="source">Source code</h1>
-        <sh:code value="uiDebug.xhtml" showSource="#{true}"/>
+        <sh:codeSnippet file="uiDebug.xhtml" showSource="true" />
     </ui:define>
 </ui:composition>
 </html>

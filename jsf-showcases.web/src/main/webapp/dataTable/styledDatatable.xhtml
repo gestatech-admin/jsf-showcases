@@ -5,7 +5,7 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
 <ui:define name="main">
@@ -39,9 +39,9 @@
     </h:dataTable>
     
     <h1 class="source">Source code</h1>
-    <sh:code value="styledDatatable.xhtml" showSource="#{true}" />
+    <sh:codeSnippet file="styledDatatable.xhtml" showSource="true" />
     
-    <sh:code value="StyledDatatable.java" showSource="#{true}" />
+    <sh:codeSnippet file="StyledDatatable.java" showSource="true" />
     </ui:define>
 </ui:composition>
 

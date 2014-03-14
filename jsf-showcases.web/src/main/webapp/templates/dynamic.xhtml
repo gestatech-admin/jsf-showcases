@@ -4,7 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
 
 <ui:composition template="#{dynamicTemplateExample.selectedTemplate}">
 
@@ -13,21 +13,26 @@
         <p>You can select a template below that this page is going
             to use when rendered.</p>
 
-        <h:selectOneMenu
-            value="#{dynamicTemplateExample.selectedTemplate}"
-            label="Select a template to use">
-            <f:selectItems value="#{dynamicTemplateExample.templates}"
-                var="item" itemValue="item" itemLabel="item"></f:selectItems>
-        </h:selectOneMenu>
+        <h:form id="templateSelectForm">
+            <h:selectOneMenu id="templateSelectMenu"
+                value="#{dynamicTemplateExample.selectedTemplate}"
+                label="Select a template to use" onchange="submit()">
+                <f:selectItems
+                    value="#{dynamicTemplateExample.templates}" />
+            </h:selectOneMenu>
+        </h:form>
 
         <h1 class="source">Source code</h1>
-        <sh:code value="/templates/dynamic.xhtml" showSource="#{true}" />
-        <sh:code value="DynamicTemplateExample.java"
-            showSource="#{true}" />
-        <sh:code value="/resources/templates/dynamicTemplate1.xhtml"
-            showSource="#{true}" />
-        <sh:code value="/resources/templates/dynamicTemplate2.xhtml"
-            showSource="#{true}" />
+        <sh:codeSnippet file="/templates/dynamic.xhtml"
+            showSource="true" />
+        <sh:codeSnippet file="DynamicTemplateExample.java"
+            showSource="true" />
+        <sh:codeSnippet
+            file="/resources/templates/dynamicTemplate1.xhtml"
+            showSource="true" />
+        <sh:codeSnippet
+            file="/resources/templates/dynamicTemplate2.xhtml"
+            showSource="true" />
     </ui:define>
 </ui:composition>
 </html>

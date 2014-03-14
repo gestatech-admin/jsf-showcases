@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.0"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd ">
+
+	<!-- This taglib needs to be referenced in the web.xml of the WAR 
+		or application library jar
+		 
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/jsf-showcases.taglib.xml</param-value>
+    </context-param>
+     -->
+
+	<!-- Need a namespace to somehow reference this taglibrary in the xml document -->
+	<namespace>http://jsfshowcase.palkonyves.hu/jsf-showcases</namespace>
+
+	<!-- Tag definition starts here -->
+	<tag>
+		<tag-name>codeSnippet</tag-name>
+
+		<component>
+			<component-type>CodeSnippet</component-type>
+			<renderer-type>hu.palkonyves.jsfshowcase.component.renderer.CodeSnippetRenderer</renderer-type>
+		</component>
+
+        <!-- attribute definitions
+        The names must be the exact names of the attribute setter & getters -->
+		<attribute>
+			<description>File path from context route</description>
+			<name>file</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute>
+			<description>Snippet key/number within file. If not present, the whole file is shown</description>
+			<name>snippet</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute>
+			<description>Whether or not the source file name should be presented, default is false</description>
+			<name>showSource</name>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+		</attribute>
+	</tag>
+</facelet-taglib>

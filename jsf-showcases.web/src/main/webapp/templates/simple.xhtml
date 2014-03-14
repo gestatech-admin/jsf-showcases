@@ -4,7 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
 
 <ui:composition template="/resources/templates/simpleTemplate.xhtml">
     <ui:define name="simpleTemplateMain">
@@ -17,8 +17,8 @@
         </p>
 
         <h1 class="source">Source code</h1>
-        <sh:code value="/resources/templates/simpleTemplate.xhtml" showSource="#{true}" />
-        <sh:code value="/templates/simple.xhtml" showSource="#{true}" />
+        <sh:codeSnippet file="/resources/templates/simpleTemplate.xhtml" showSource="true" />
+        <sh:codeSnippet file="/templates/simple.xhtml" showSource="true" />
     </ui:define>
 </ui:composition>
 </html>

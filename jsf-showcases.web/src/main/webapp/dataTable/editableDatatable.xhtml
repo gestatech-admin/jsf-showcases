@@ -4,7 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:sh="http://java.sun.com/jsf/composite/components/showcases">
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
 
 <ui:composition template="/resources/templates/t_main.xhtml">
 <ui:define name="main">
@@ -56,11 +56,11 @@
     </h:form>
     
     <h1 class="source">Source code</h1>
-        <sh:code value="editableDatatable.xhtml" showSource="#{true}" />
+        <sh:codeSnippet file="editableDatatable.xhtml" showSource="true" />
         
-        <sh:code value="EditableDatatable.java" showSource="#{true}" />
+        <sh:codeSnippet file="EditableDatatable.java" showSource="true" />
         
-        <sh:code value="SimpleDatatable.java" showSource="#{true}" />
+        <sh:codeSnippet file="SimpleDatatable.java" showSource="#{true}" />
     </ui:define>
 </ui:composition>
 
