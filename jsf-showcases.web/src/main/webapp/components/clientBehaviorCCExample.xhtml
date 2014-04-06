@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases"
+    xmlns:shcc="http://java.sun.com/jsf/composite/components/showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+    <ui:define name="main">
+        <h1>Ajaxified search composite component</h1>
+
+        <p>You can attach AjaxClientBehavior to the composite component 
+        with the following code in your <i>interface declaration</i>: </p>
+        <sh:codeSnippet file="clientBehaviorSearchComponent.xhtml" snippet="1" />
+
+        <h2>Search</h2>
+        <h:form id="searchCCExampleForm">
+            <shcc:clientBehaviorSearchComponent
+                value="#{searchController.searchString}">
+                <f:ajax event="keyup" execute="@form" render=":searchCCResults"
+                    listener="#{searchController.searchAction()}" />
+            </shcc:clientBehaviorSearchComponent>
+        </h:form>
+        
+        <h2>Results</h2>
+        <h:dataTable id="searchCCResults" value="#{searchController.resultList}"
+            var="result">
+            <!-- execute search on the first access of the page -->
+            <f:event type="preRenderView" listener="#{searchController.searchAction()}" />
+            
+            <h:column>
+                <!-- define colum header with f:facet tag -->
+                <f:facet name="header">pages</f:facet>
+
+                <!-- column cells -->
+                <h:outputText value="#{result.label}" />
+            </h:column>
+        </h:dataTable>
+
+        <h1 class="source">Source code</h1>
+        <sh:codeSnippet file="clientBehaviorCCExample.xhtml" showSource="true" />
+        <sh:codeSnippet file="clientBehaviorSearchComponent.xhtml" showSource="true" />
+        <sh:codeSnippet file="SearchController.java" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>

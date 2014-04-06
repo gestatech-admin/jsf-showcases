@@ -8,29 +8,33 @@
 
 <!-- cc interface, i.e public attributes -->
 <composite:interface>
-    <!-- Any Expression Language expression 
-        that is referenced with #{cc.attrs.value} -->
+    <!-- 
+        Any Expression Language expression 
+        that is referenced with #{cc.attrs.value} 
+    -->
     <composite:attribute name="value" required="true" />
     <composite:attribute name="buttonText" default="search" />
 
-    <!-- 'binds' an attribute to a specific 
+    <!-- 
+        'binds' an attribute to a specific 
 		attribute of a specific component.
-		This attribute is also a method expression.-->
-    <composite:attribute name="searchAction"
+		This attribute is also a method expression.
+    -->
+    <composite:attribute name="action"
         method-signature="java.lang.Object action()"
-        targets="searchButton" targetAttributeName="value" />
-		
-	<!-- https://javaserverfaces.java.net/nonav/docs/2.1/vdldocs/facelets/index.html -->
+        targets="searchButton" targetAttributeName="action" />
+
+    <!-- https://javaserverfaces.java.net/nonav/docs/2.1/vdldocs/facelets/index.html -->
 </composite:interface>
 
 <!-- cc implementation, i.e. usage of attributes -->
 <composite:implementation>
     <h:panelGrid columns="2">
         <h:inputText id="value" value="#{cc.attrs.value}" />
-        
+
         <!-- implicitly defined action by the 'searchAction' attribute -->
         <h:commandButton id="searchButton"
-            value="#{cc.attrs.buttonText}" />
+            value="#{cc.attrs.buttonText}" styleClass="btn btn-default"/>
     </h:panelGrid>
 </composite:implementation>
 </html>

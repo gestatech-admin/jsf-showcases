@@ -128,6 +128,20 @@ public class CodeSnippet extends UIComponentBase {
 		return snippet;
 	}
 
+	public String getFilePath() {
+		SourceCodeReader codeReader = getSourceCodeReader();
+		String file = getFile();
+
+		if (file == null) {
+			throw new NullPointerException(ATTR_FILE + " attribute for "
+					+ COMPONENT_TYPE + " component is null");
+		}
+
+		// if number is null, it means we want the whole file
+		String filePath = codeReader.getSourceFilePath(file);
+		return filePath;
+	}
+
 	/**
 	 * @return the {@link SourceCodeReader} object via ELExpression lookup
 	 */

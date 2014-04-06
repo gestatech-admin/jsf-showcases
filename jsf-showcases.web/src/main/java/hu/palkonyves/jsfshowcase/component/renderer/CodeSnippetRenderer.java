@@ -78,10 +78,10 @@ public class CodeSnippetRenderer extends Renderer {
 
 		if (showFileName) {
 			if (fileName != null) {
-
+				String sourceFilePath = codeSnippetComponent.getFilePath();
 				// render the file name part
 				writer.write("<span class='filename'>");
-				writer.write(fileName);
+				writer.write(sourceFilePath);
 				writer.write("</span>\n");
 
 			} else {

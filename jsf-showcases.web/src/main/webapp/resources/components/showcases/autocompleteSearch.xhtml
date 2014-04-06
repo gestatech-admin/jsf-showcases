@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <!-- with JQuery UI 
+        href: http://api.jqueryui.com/autocomplete/
+    -->
+    <!-- snippet=1 -->
+    <composite:attribute name="value" required="true" type="java.lang.String"
+        shortDescription="search value property"/>
+    <composite:attribute name="hints" required="true" type="java.lang.String"
+        shortDescription="hints field property. Must have setter(String)/String getter()"/>
+    <!-- endsnippet -->
+    
+    <!-- ajaxify search -->
+    <composite:clientBehavior name="click" event="click" targets="search" />
+</composite:interface>
+
+<composite:implementation>
+    <!-- snippet=2 -->
+    <!-- used to transport a comma separated hint list on ajax request -->
+    <h:inputHidden id="hints" value="#{cc.attrs.hints}" />
+    <h:inputText id="value" value="#{cc.attrs.value}" />
+    <!-- endsnippet -->
+    
+    <h:commandButton id="search" value="search" styleClass="btn btn-default"/>
+
+
+<script type="text/javascript">
+/**
+ * replaces ':' characters with '\:'
+ */
+function id(id) {
+	return id.replace(/:/g, '\\:')
+}
+
+/**
+ * Initialize autocomplete with value and hints input field
+ *
+ * @param acValueId - pure JSF id (no hashmark, unescaped ':')
+ * @param acHintsId - pure JSF id (no hashmark, unescaped ':')
+ */
+function initAutoComplete(acValueId, acHintsId) {
+	var autoCompleteField = $(id("#"+acValueId));
+
+	// initialize jquery autocomplete field
+	autoCompleteField.autocomplete({
+	// called on change of the autocomplete field
+	source : function(autoRequest, autoResponse) {
+
+		var jsfAjaxRequestProperties = {
+			// execute calls setters, actions and action listeners
+			execute : acValueId,
+			
+			// render calls getters and returns the 
+			// new dom elements in partial-response
+			render : acHintsId, 
+			
+			// events: begin/complete/success
+			onevent : function(ajaxEvent) {
+				if (ajaxEvent.status === "success") {
+					var autoCompleteHints = $(id("#"+acHintsId));
+
+					// autoCompleteHints is a list, 
+					// val() returns the value of first element
+					var terms = autoCompleteHints.val();
+					
+					// create array out of comma separated list
+					var termsArray = terms.split(",");
+					
+					// tell JQuery-UI Autocomplete widget 
+					// the new array of terms
+					autoResponse(termsArray);
+				}
+			},
+			onerror : function(ajaxEvent) {
+				alert(ajaxEvent);						
+			}
+		};
+
+		// create a html event for jsf
+		var event = document.createEvent('HTMLEvents');
+		event.initEvent('change', true, true);
+
+	    // manually fire jsf.ajax.request
+		jsf.ajax.request(autoCompleteField,
+			event,
+			jsfAjaxRequestProperties);
+	}
+	});
+}
+
+$(function() {
+	initAutoComplete("#{cc.clientId}:value", "#{cc.clientId}:hints");
+});
+</script>
+</composite:implementation>
+</html>

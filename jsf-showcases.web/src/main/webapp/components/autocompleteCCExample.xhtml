@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases"
+    xmlns:shcc="http://java.sun.com/jsf/composite/components/showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+    <ui:define name="main">
+        <h1>JQuery-UI Autocomplete search field</h1>
+        
+        <h:form id="searchCCExampleForm">
+            <!-- snippet=1 -->
+            <shcc:autocompleteSearch
+                value="#{searchController.searchString}"
+                hints="#{searchController.autoCompleteHints}">
+                <f:ajax event="click" execute="@form" render=":searchCCResults"
+                    listener="#{searchController.searchAction()}" />
+            </shcc:autocompleteSearch>
+            <!-- endsnippet -->
+        </h:form>
+        
+        <h3>Results</h3>
+        <h:panelGroup layout="block" style="border:thin solid gray; padding:0.5em; margin:1em;">
+        <h:dataTable id="searchCCResults" value="#{searchController.resultList}"
+            var="result">
+            <!-- execute search on the first access of the page -->
+            <f:event type="preRenderView" listener="#{searchController.searchAction()}" />
+            
+            <h:column>
+                <h:outputText value="#{result.label}" />
+            </h:column>
+        </h:dataTable>
+        </h:panelGroup>
+
+        <h2>How it works</h2>
+        <p>
+        Search field with autocomplete option implemented with JQuery-UI Autocomplete widget:
+        <h:outputLink value="http://api.jqueryui.com/autocomplete/">http://api.jqueryui.com/autocomplete/</h:outputLink>.
+        </p>
+        
+        <p>
+        <i>autocompleteSearch.xhtml</i> has two input fields: <i>value</i> and <i>hints</i><br/>
+        <sh:codeSnippet file="autocompleteSearch.xhtml" snippet="1" />
+        <sh:codeSnippet file="autocompleteSearch.xhtml" snippet="2" />
+        <i>Value and hints</i> must be backing bean properties of type <i>java.lang.String</i> with getters and setters.
+        <i>hints</i> is a comma separated list of possible values. 
+        </p>
+        
+        <p>
+        When user types something into the value field, JQuery Autocomplete widget triggers a change event
+        that calls a callback function defined in the <i>"source"</i> option of the widget. We take advantage
+        of this callback function to make a <i>jsf.ajax.request</i>.
+        We create the request so the <i>value</i> is sent to the server and a new <i>hints</i> DOM element is expected in the <i>partial-response</i>
+        </p>
+        
+        <pre>
+execute: "\#{cc.clientId}:value",
+render: "\#{cc.clientId}:hints",</pre>
+        
+        <p>
+        On the server we use the <i>value</i> to calculate the <i>hints</i> on the fly in the <i>getter of hints</i>.
+        </p>
+        
+        <p>
+        We also defined a <i>clientBehavior</i> on the autocompleteSearch component that is used when the user clicks
+        on the search button.
+        </p>
+        <sh:codeSnippet file="autocompleteCCExample.xhtml" snippet="1" />
+
+        <h1 class="source">Source code</h1>
+        <sh:codeSnippet file="autocompleteCCExample.xhtml" showSource="true" />
+        <sh:codeSnippet file="autocompleteSearch.xhtml" showSource="true" />
+        <sh:codeSnippet file="SearchController.java" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>

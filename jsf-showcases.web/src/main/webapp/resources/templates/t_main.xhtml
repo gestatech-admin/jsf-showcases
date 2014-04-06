@@ -13,15 +13,27 @@
         <!-- 	<script type="text/javascript" -->
         <!-- 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" /> -->
     </ui:remove>
+    
+    <h:outputScript library="javax.faces" name="jsf.js" target="head"/>  
+    <!-- jquery ui -->
+    <h:outputStylesheet library="css/ui-lightness" name="jquery-ui-1.10.4.custom.css" />
+    <h:outputScript library="js" name="jquery-1.10.2.js" />
+    <h:outputScript library="js" name="jquery-ui-1.10.4.custom.js" />
+    
+    <!-- boostrap -->
     <h:outputScript library="js" name="bootstrap.js" />
     <h:outputStylesheet library="css" name="bootstrap.css" />
+    
+    <!-- own style -->
     <h:outputStylesheet library="css" name="style.css" />
+    
+    <!-- prettifier -->
     <h:outputStylesheet library="google-code-prettify"
         name="prettify.css" type="text/css" rel="stylesheet" />
     <h:outputScript library="google-code-prettify" name="prettify.js" />
 </h:head>
 <h:body onload="prettyPrint()">
-    <ui:debug />
+    <ui:debug hotkey="h" />
     <h:panelGroup id="page" border="1" layout="block"
         styleClass="layout">
         <h:panelGroup id="north" layout="block" styleClass="row">
