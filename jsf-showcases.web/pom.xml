@@ -14,11 +14,11 @@
 	</parent>
 
 	<properties>
-		<containerVersion>jetty8x</containerVersion>
+		<containerVersion>tomcat7x</containerVersion>
 
 		<!-- Jetty download url contains query parameters after the '?' and the 
 			plugin doesn't seem to like it -->
-		<containerUrl>file:///c:\Users\Pali\Downloads\jetty-distribution-8.1.14.v20131031.zip</containerUrl>
+		<containerUrl>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.54/bin/apache-tomcat-7.0.54.zip</containerUrl>
 	</properties>
 
 	<!-- for cargo glassfish plugin -->
@@ -28,7 +28,7 @@
 			<name>Codehaus Snapshots</name>
 			<url>http://nexus.codehaus.org/snapshots/</url>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -42,7 +42,7 @@
 			<name>Codehaus Snapshots</name>
 			<url>http://nexus.codehaus.org/snapshots/</url>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -107,6 +107,30 @@
 			<version>1.3.2</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- ghostwriter -->
+		<dependency>
+            <groupId>io.ghostwriter</groupId>
+            <artifactId>ghostwriter-rt-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ghostwriter</groupId>
+            <artifactId>ghostwriter7</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ghostwriter</groupId>
+            <artifactId>ghostwriter-rt-flume</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -116,26 +140,71 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<webResources>
 						<resource>
-							<directory>${build.sourceDirectory}</directory>
+							<directory>${project.build.sourceDirectory}</directory>
 							<targetPath>src</targetPath>
 						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
+			
+			
+			<!-- maven compiler plugin because it is good and needed for annotation processor -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <debug>true</debug>
+                            <verbose>true</verbose>
+                            <compilerArgument>-XprintProcessorInfo</compilerArgument>
+                            <annotationProcessors>
+                                <annotationProcessor>
+                                    io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor
+                                </annotationProcessor>
+                            </annotationProcessors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <debug>true</debug>
+                            <verbose>true</verbose>
+                            <compilerArgument>-XprintProcessorInfo</compilerArgument>
+                            <annotationProcessors>
+                                <annotationProcessor>
+                                    io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor
+                                </annotationProcessor>
+                            </annotationProcessors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
 				<configuration>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
@@ -155,15 +224,54 @@
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>1.4.8-SNAPSHOT</version>
+				<version>1.4.9-SNAPSHOT</version>
 				<configuration>
 					<container>
 						<containerId>${containerVersion}</containerId>
 						<zipUrlInstaller>
 							<url>${containerUrl}</url>
+							<downloadDir>${basedir}/downloads</downloadDir>
+                            <extractDir>${basedir}/container</extractDir>
 						</zipUrlInstaller>
+						<systemProperties>
+	                       <client.type>outputwriter</client.type>
+	                       <io.ghostwriter.flume.host>localhost</io.ghostwriter.flume.host>
+<!-- 	                       <io.ghostwriter.applicationname>jsf-showcases</io.ghostwriter.applicationname> -->
+<!-- 	                       <client.type>thrift</client.type> -->
+<!-- 	                       <io.ghostwriter.flume.host>192.168.1.150:50414</io.ghostwriter.flume.host> -->
+						</systemProperties>
 					</container>
+					<configuration>
+						<type>standalone</type>
+						<properties>
+							<cargo.tomcat.manager.url>
+								http://localhost:8080/manager
+							</cargo.tomcat.manager.url>
+							<cargo.remote.username>admin</cargo.remote.username>
+							<cargo.remote.password>password</cargo.remote.password>
+						</properties>
+					</configuration>
 				</configuration>
+				<executions>
+				    <execution>
+				      <id>run</id>
+				      <configuration>
+				        <configuration>
+				          <properties>
+				            <cargo.jvmargs>
+				              -Xdebug
+				              -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000
+				              -Xnoagent
+				              -Djava.compiler=NONE
+				            </cargo.jvmargs>
+				          </properties>
+				        </configuration>
+				      </configuration>
+				      <goals>
+				        <goal>run</goal>
+				      </goals>
+				    </execution>
+				 </executions>
 			</plugin>
 
 		</plugins>
