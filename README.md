@@ -16,4 +16,4 @@ Running the container. This will download a Tomcat 7 version and run the applica
   
 To redeploying the application, from a separate console issue the command:
 
-  `mvn verify org.codehaus.cargo:cargo-maven2-plugin:deploy-redeploy`
+  `mvn verify org.codehaus.cargo:cargo-maven2-plugin:deployer-redeploy`
