@@ -1,13 +1,19 @@
-jsf-showcases
-=============
+# jsf-showcases
 
 Showcases of how development should be done in JSF.
 
-Creating eclipse project
-  mvn eclipse:eclipse
+Creating eclipse project:
+  
+  `mvn eclipse:eclipse`
   
 Building the artifact
-  mvn clean package
+
+  `mvn clean package`
   
-Test the application. For that change the containerUrl property in jsf-showcase.web/pom.xml 
-  mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run
+Running the container. This will download a Tomcat 7 version and run the application on that.
+  
+  `mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run`
+  
+To redeploying the application, from a separate console issue the command:
+
+  `mvn verify org.codehaus.cargo:cargo-maven2-plugin:deploy-redeploy`
