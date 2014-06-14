@@ -109,28 +109,28 @@
 		</dependency>
 		
 		<!-- ghostwriter -->
-		<dependency>
-            <groupId>io.ghostwriter</groupId>
-            <artifactId>ghostwriter-rt-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.ghostwriter</groupId>
-            <artifactId>ghostwriter7</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.ghostwriter</groupId>
-            <artifactId>ghostwriter-rt-flume</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!-- 		<dependency> -->
+<!--             <groupId>io.ghostwriter</groupId> -->
+<!--             <artifactId>ghostwriter-rt-api</artifactId> -->
+<!--             <version>1.0.0-SNAPSHOT</version> -->
+<!--         </dependency> -->
+<!--         <dependency> -->
+<!--             <groupId>io.ghostwriter</groupId> -->
+<!--             <artifactId>ghostwriter7</artifactId> -->
+<!--             <version>1.0.0-SNAPSHOT</version> -->
+<!--         </dependency> -->
+<!--         <dependency> -->
+<!--             <groupId>io.ghostwriter</groupId> -->
+<!--             <artifactId>ghostwriter-rt-flume</artifactId> -->
+<!--             <version>1.0.0-SNAPSHOT</version> -->
+<!--             <scope>runtime</scope> -->
+<!--             <exclusions> -->
+<!--                 <exclusion> -->
+<!--                     <groupId>org.slf4j</groupId> -->
+<!--                     <artifactId>slf4j-api</artifactId> -->
+<!--                 </exclusion> -->
+<!--             </exclusions> -->
+<!--         </dependency> -->
 	</dependencies>
 
 	<build>
@@ -172,12 +172,12 @@
                         <configuration>
                             <debug>true</debug>
                             <verbose>true</verbose>
-                            <compilerArgument>-XprintProcessorInfo</compilerArgument>
-                            <annotationProcessors>
-                                <annotationProcessor>
-                                    io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor
-                                </annotationProcessor>
-                            </annotationProcessors>
+<!--                             <compilerArgument>-XprintProcessorInfo</compilerArgument> -->
+<!--                             <annotationProcessors> -->
+<!--                                 <annotationProcessor> -->
+<!--                                     io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor -->
+<!--                                 </annotationProcessor> -->
+<!--                             </annotationProcessors> -->
                         </configuration>
                     </execution>
                     <execution>
@@ -189,12 +189,12 @@
                         <configuration>
                             <debug>true</debug>
                             <verbose>true</verbose>
-                            <compilerArgument>-XprintProcessorInfo</compilerArgument>
-                            <annotationProcessors>
-                                <annotationProcessor>
-                                    io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor
-                                </annotationProcessor>
-                            </annotationProcessors>
+<!--                             <compilerArgument>-XprintProcessorInfo</compilerArgument> -->
+<!--                             <annotationProcessors> -->
+<!--                                 <annotationProcessor> -->
+<!--                                     io.ghostwriter.openjdk.v7.GhostWriterAnnotationProcessor -->
+<!--                                 </annotationProcessor> -->
+<!--                             </annotationProcessors> -->
                         </configuration>
                     </execution>
                 </executions>

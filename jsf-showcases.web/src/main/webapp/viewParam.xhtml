@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+    
+    <f:metadata>
+        <!--  
+        converters, validators and valuechangelisteners 
+        can be attached to viewParam. It behaves the same
+        as a h:inputText. 
+        -->
+        <f:viewParam name="bananaId" id="bananaId"
+            value="#{viewParamExample.bananaId}"
+            valueChangeListener="#{viewParamExample.load}"
+            required="true" requiredMessage="bananaId is required">
+            <f:convertNumber type="number"></f:convertNumber>
+        </f:viewParam>
+    </f:metadata>
+    
+    <ui:define name="main">
+        <h1>&lt;f:viewParam/&gt;</h1>
+
+        <!-- converter and validator messages -->
+        <h:message for="bananaId"/>
+        <br/>
+
+        <!-- presenting banana details -->
+        <h:panelGrid columns="2"
+            rendered="#{not empty viewParamExample.banana}">
+
+            <h:outputLabel value="ID" for="bananaId" />
+            <h:link id="bananaIdLink" value="#{viewParamExample.banana.id}">
+                <f:param name="bananaId"
+                    value="#{viewParamExample.banana.id}"></f:param>
+            </h:link>
+
+            <h:outputLabel value="name" for="bananaName" />
+            <h:outputText id="bananaName"
+                value="#{viewParamExample.banana.name}" />
+
+            <h:outputLabel value="brownness" for="brownness" />
+            <h:outputText id="brownness"
+                value="#{viewParamExample.banana.browness}" />
+
+            <h:outputLabel value="yellowness" for="yellowness" />
+            <h:outputText id="yellowness"
+                value="#{viewParamExample.banana.yellowness}" />
+
+        </h:panelGrid>
+
+        <!-- presenting alternative text when banana was not found -->
+        <h:panelGroup rendered="#{empty viewParamExample.banana}">
+            <h:outputText value="No banana found" />
+            <br />
+            <h:link value="click here to see a banana">
+                <f:param name="bananaId" value="1"/>
+            </h:link>
+        </h:panelGroup>
+
+        <h1 class="source">Source code</h1>
+        <sh:codeSnippet file="viewParam.xhtml" showSource="true" />
+        <sh:codeSnippet file="ViewParamExample.java" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>

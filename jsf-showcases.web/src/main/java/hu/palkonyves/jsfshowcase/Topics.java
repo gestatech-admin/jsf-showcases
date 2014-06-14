@@ -1,6 +1,8 @@
 package hu.palkonyves.jsfshowcase;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -57,12 +59,27 @@ public class Topics {
 
 		}
 
+		Collections.sort(result, new Comparator<String[]>() {
+
+			@Override
+			public int compare(String[] arg0, String[] arg1) {
+				String topic0 = arg0[1];
+				String topic1 = arg1[1];
+				if (topic0 != null && topic1 != null) {
+					return topic0.compareTo(topic1);
+				} else {
+					return 0;
+				}
+			}
+
+		});
+
 		return result;
 	}
 
 	/**
 	 * Impl: Finds the first &lt;h1&gt; tag on the page and returns it
-	 * 
+	 *
 	 * @param source
 	 * @return
 	 */
@@ -81,7 +98,7 @@ public class Topics {
 
 	/**
 	 * Retrieve only pages ending to .xhtml
-	 * 
+	 *
 	 * @return
 	 */
 	private List<String> getXhtmlPages() {

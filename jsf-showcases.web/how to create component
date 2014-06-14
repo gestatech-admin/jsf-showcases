@@ -1,0 +1,11 @@
+How to create component
+
+ UIComponent panelGroup = ctx.getFacesContext().getApplication().createComponent(UIPanel.COMPONENT_TYPE);
+                    String id = null;
+                    panelGroup.setId(id = getViewRoot(ctx.getFacesContext(), parent).createUniqueId());
+                    Map<String, Object> attrs = panelGroup.getAttributes();
+                    attrs.put(ComponentSupport.IMPLICIT_PANEL, true);
+                    panelGroup.getChildren().add(existing);
+                    // the panel group becomes the facet
+                    parent.getFacets().put(facetName, panelGroup);
+                    existing = panelGroup;
