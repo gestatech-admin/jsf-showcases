@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+
+    <ui:define name="main">
+        <h1>Passing parameters to actions</h1>
+
+        <p>
+            Often you explicitly want to pass parameters to actions. For
+            example to control how the page is rendered, what form to
+            show, what action to take. There are multiple ways to
+            achieve this. The stateless way can be seen in
+            <h:link value="The f:viewParam example" outcome="viewParam" />
+            , where you make a get request and pass some query
+            parameters to the page.
+        </p>
+        
+        <p>The stateful way to pass parameters requires a form and command button</p>
+        <h:form>
+        <ui:repeat var="banana" value="#{passingParamsExample.allBananas}">
+            <!-- Pass the banana id to an action listener with EL 2.2 -->
+            <h:commandLink value="#{banana.name}" actionListener="#{passingParamsExample.setBananaId(banana.id)}" />
+            <h:outputText value=" " />
+        </ui:repeat>
+        </h:form>
+        
+        <h:outputText value="#{passingParamsExample.bananaId}"/>
+        
+        <h:form>
+        <h:commandButton value="edit" actionListener="#{passingParamsExample.showEdit}">
+            <!-- Pass the banana id and action with query parameter -->
+            <f:param name="bananaId" value="#{passingParamsExample.bananaId}" />
+            <f:param name="action" value="EDIT" />
+        </h:commandButton>
+        
+        <h:commandButton value="delete" actionListener="#{passingParamsExample.showDelete}">
+            <!-- Pass the banana id and action by binding these values to the enclosing commandButton component -->
+            <f:attribute name="bananaId" value="#{passingParamsExample.bananaId}" />
+            
+            <!-- note: we cannot set the attribute 'action' because that is reserved by commandButton -->
+            <f:attribute name="bananaAction" value="DELETE" />
+        </h:commandButton>
+                
+        <h:commandButton value="show">
+            <!--  set the bananaid and action properteis to the specified values upon sending the form -->
+            <f:setPropertyActionListener for="" target="#{passingParamsExample.bananaId}" value="#{passingParamsExample.bananaId}" />
+            <f:setPropertyActionListener target="#{passingParamsExample.actionStr}" value="SHOW" />
+        </h:commandButton>
+        </h:form>
+        
+        <h:panelGroup rendered="#{passingParamsExample.action == 'SHOW'}">
+            Show <h:outputText value="#{passingParamsExample.bananaId}"/>
+        </h:panelGroup>
+        
+        <h:panelGroup rendered="#{passingParamsExample.action == 'DELETE'}">
+            delete <h:outputText value="#{passingParamsExample.bananaId}" />
+        </h:panelGroup>
+        
+        <h:panelGroup rendered="#{passingParamsExample.action == 'EDIT'}">
+            edit <h:outputText value="#{passingParamsExample.bananaId}" />
+        </h:panelGroup>
+        
+        <h1 class="source">Source code</h1>
+        <sh:codeSnippet file="passingParams.xhtml" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>

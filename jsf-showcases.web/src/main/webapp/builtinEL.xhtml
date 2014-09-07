@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+
+    <ui:define name="main">
+        <h1>Built-in EL expressions</h1>
+
+        <p>This is based on BalusC's post</p>
+        <h:outputLink
+            value="http://balusc.blogspot.hu/2011/09/communication-in-jsf-20.html\#ImplicitELObjects">Implicit EL objects</h:outputLink>
+
+        <ul>
+            <li>\#{component}: the current UIComponent</li>
+            <li>\#{facesContext}: the current FacesContext</li>
+            <li>\#{view}: the current UIViewRoot</li>
+            <li>\#{request}: the current HttpServletRequest</li>
+            <li>\#{session}: the current HttpSession</li>
+            <li>\#{application}: the ServletContext</li>
+            <li>\#{flash}: the current Flash (which also implements
+                map)</li>
+            <li>\#{cc}: the current composite component</li>
+            <li>\#{requestScope}: the current request attribute map</li>
+            <li>\#{viewScope}: the current view attribute map</li>
+            <li>\#{sessionScope}: the current session attribute map</li>
+            <li>\#{applicationScope}: the application attribute map</li>
+            <li>\#{initParam}: the current context parameter map</li>
+            <li>\#{param}: the current request parameter map</li>
+            <li>\#{paramValues}: the current request parameter
+                values map</li>
+            <li>\#{header}: the current request header map</li>
+            <li>\#{headerValues}: the current request header values
+                map</li>
+            <li>\#{cookie}: the current request cookie map</li>
+            <li>\#{resource}: converts a JSF resource id entifier
+                to a concrete resource URL.</li>
+        </ul>
+        <h1 class="source">Source code</h1>
+        <sh:codeSnippet file="builtinEL.xhtml" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>
