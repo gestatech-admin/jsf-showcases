@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+
+    <ui:define name="main">
+    <h1>JSTL Functions</h1>
+
+    <p>
+        JSTL Functions are useful when a simple transformation on a data is required in the facelet.
+        For example concatenating an array of string, making a string lowercase, trimming.<br/>
+        
+        A missconception is that you cannot use these functions in a JSF page because they are defined
+        in the <i>jsp</i> namespace. The truth is, both JSTL functions, as long as you use <i>deferred EL expressions</i> (#{something} instead of ${something}).<br/>
+               
+        The full set of available functions are found here:
+        <h:outputLink value="https://docs.oracle.com/javaee/7/javaserver-faces-2-2/vdldocs-facelets/fn/tld-summary.html">https://docs.oracle.com/javaee/7/javaserver-faces-2-2/vdldocs-facelets/fn/tld-summary.html</h:outputLink>
+    </p>
+    <p>
+    To use the the JSTL functions, you need to import the xml schema to your facelet.<br/>
+    <i>xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions</i>
+    </p>
+      
+    <h2>fn:replace</h2>
+    <p>In this example we replace every <i>apples</i> with <i>bananas</i></p>
+    <p>#{fn:replace("This project contains lots of apples","apple","banana")}</p>
+	
+    <h2>fn:containsIgnoreCase</h2>
+    <p>In the following list, we put a * before the name, if it contains <i>joe</i></p>
+    <ul>
+        <ui:repeat value="#{simpleDatatable.bananas}" var="banana">
+        <li>
+	        <h:panelGroup rendered="#{fn:containsIgnoreCase(banana.name, 'joe')}">*</h:panelGroup>
+	        #{banana.name}
+        </li>
+        </ui:repeat>
+    </ul>
+    
+    <h2>fn:join</h2>
+    <p>We now join the name of the bananas with colons.<br/>
+    #{fn:join(jstlFunctionsController.bananaNames, ",")}</p>
+    
+    	
+    <h1 class="source">Source code</h1>
+    <sh:codeSnippet file="jstlFn.xhtml" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>
