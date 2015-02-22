@@ -10,11 +10,44 @@
 
     <ui:define name="main">
         <h1>Built-in EL expressions</h1>
+        <p>Built-in EL expressions make it easier to access context, session, request information
+        and change rendering behavior accordingly. For example if a user choose to hide certain
+        elements on the page, and this information is saved in a cookie or in the session,
+        it can be easily accessed from the facelet.</p>
 
-        <p>This is based on BalusC's post</p>
+        <h3>Getting request parameters</h3>
+        <p>Type any query parameters in the address bar, and reload the page. Parameters
+        from a POST request will also be available in the \#{param} object, that is why we
+        gave nice <i>id</i>s to the form values in the next example.</p>
+        
+        <h:panelGroup type="block" rendered="#{param.isEmpty()}">
+            <h:outputText value="There are no query parameters." />
+        </h:panelGroup>
+        
+        <!-- note here that ui:repeat did not recognize the java.util.Set -->
+        <h:dataTable value="#{param.entrySet()}" var="paramEntry"
+        rendered="#{not param.isEmpty()}">
+	        <h:column>
+		        <h:outputText value="#{paramEntry.getKey()}" />
+		        - <h:outputText value="#{paramEntry.getValue()}" />
+	        </h:column>
+        </h:dataTable>
+        
+        
+        <h3>Saving &amp; retrieving info from the session</h3>
+        <p>Save some information in the session. Note that if you specified any query parameters
+        in the address bar, they will not be resent with the POST request.</p>
+        <h:form id="sessionSaveForm">
+            <h:outputText value="Current value: #{sessionScope['someInfo']}" /><br/>
+            <h:inputText id="someInfoValue" value="#{sessionScope['someInfo']}" />
+            <h:commandButton id="saveButton" value="save"></h:commandButton>
+        </h:form>
+        
+        <h2>List of build-in parameters</h2>
+        <p>This is based on BalusC's post
         <h:outputLink
             value="http://balusc.blogspot.hu/2011/09/communication-in-jsf-20.html\#ImplicitELObjects">Implicit EL objects</h:outputLink>
-
+        </p>
         <ul>
             <li>\#{component}: the current UIComponent</li>
             <li>\#{facesContext}: the current FacesContext</li>
