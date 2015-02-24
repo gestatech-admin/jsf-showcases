@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:sh="http://jsfshowcase.palkonyves.hu/jsf-showcases">
+
+<ui:composition template="/resources/templates/t_main.xhtml">
+
+    <ui:define name="main">
+    <h1>f:attribute versus f:param</h1>
+
+    <p>
+        To understand the difference between &lt;f:attribute&gt; and &lt;f:param&gt;, 
+        we have to go a bit deeper into JSF component structure and behavior. 
+    </p>
+    <p>
+        Let's create an <i>outputText</i> component, set an &lt;f:attribute&gt; and an 
+        &lt;f:param&gt; on it, then check out in backing bean code, what the component 
+        hierarchy looks like. The two code snippets represent the work being done on 
+        the next line:
+    </p>
+    
+    <!-- snippet=1 -->
+    <!-- Test the component hierarchy on pre render phase, 
+        when the component tree is already built -->
+    <f:event type="preRenderView" listener="#{attributeParam.testComponent()}" />
+    
+    <h:outputText id="someOutputText" value="some text is here" 
+        binding="#{attributeParam.someOutputText}" >
+        <f:attribute name="attribute1" value="#{attributeParam.arrayList}" />
+        <f:attribute name="style" value="font-style:italic;" />
+        <f:param id="param1" name="param name" value="param value" />    
+    </h:outputText>
+    <!-- endsnippet -->
+    <br/>
+    <br/>
+    
+    <sh:codeSnippet file="fAttributefParam.xhtml" snippet="1" />
+    <sh:codeSnippet file="AttributeParam.java" snippet="1" />
+    
+    <p>
+        We can see that the &lt;f:attribute&gt; became an attribute set on the 
+        <i>outputText</i>, whereas the &lt;f:param&gt; became a child element of 
+        the component. Check out that the text rendered is italic. It means, the 
+        attribute named <i>style</i> was in fact interpreted as the 
+        <i>style attribute of the outputText component</i>.
+    </p>
+    
+    <h2>&lt;f:attribute&gt;</h2>
+    <p>
+        With &lt;f:attribute&gt; we can set component-defined attributes as well as
+        attach arbitrary objects to the component, which comes very handy if we
+        want to specify on a <i>commandButton</i> the database id of an object we
+        want to delete, without exposing it to the browser. The attribute will be saved
+        in the component state, and can be retrieved on postback.
+    </p>
+    
+    <h2>&lt;f:param&gt;</h2>
+    <p>
+        The &lt;f:param&gt; tag becomes a child element of the defining component.
+        It means that the interpretation of <i>param</i> is up to the defining component.
+        Most often we use this tag to specify query parameters on links and buttons,
+        that will be sent to the browser. 
+        The benefit is, less state information will be maintained on the server side,
+        and we can define query parameters on stateless links e.g. &lt;h:outputLink&gt;
+        List of components that make use of &lt;f:param&gt;:
+    </p>
+    <ul>
+        <li>h:outputLink</li>
+        <li>h:link</li>
+        <li>h:commandLink</li>
+        <li>h:commandButton</li>
+    </ul>
+    <p>
+        For further use-cases, check out these examples on SO:
+        <h:outputLink value="http://stackoverflow.com/questions/14474484/jsf-core-tag-setpropertyactionlistener-vs-attribute-vs-param">
+        http://stackoverflow.com/questions/14474484/jsf-core-tag-setpropertyactionlistener-vs-attribute-vs-param</h:outputLink>
+    </p>
+    
+    <h1 class="source">Source code</h1>
+    <sh:codeSnippet file="fAttributefParam.xhtml" showSource="true" />
+    <sh:codeSnippet file="AttributeParam.java" showSource="true" />
+    </ui:define>
+</ui:composition>
+</html>
