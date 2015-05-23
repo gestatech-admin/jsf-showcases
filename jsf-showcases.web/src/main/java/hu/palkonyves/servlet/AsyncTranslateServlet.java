@@ -1,5 +1,7 @@
 package hu.palkonyves.servlet;
 
+import hu.palkonyves.ws.rest.dto.ElapsedTime;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.Callable;
@@ -16,6 +18,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 
 /**
  * Servlet implementation class AsyncTranslateServlet
@@ -67,14 +72,19 @@ public class AsyncTranslateServlet extends HttpServlet {
             }
         });
 		
-		asyncContext.setTimeout(100L);
+		//asyncContext.setTimeout(100L);
 		
 		
 		managedExecutorService.execute(new Runnable() {
             
             @Override
             public void run() {
-                writer.append("shit");
+
+                Client client = ClientBuilder.newClient();
+                ElapsedTime res = client.target("http://localhost:8080/jsf-showcase/api/longRunningService/elapsedTime")
+                        .queryParam("maxMillisec", 1000).request("application/json").get(ElapsedTime.class);
+                Long elapsedTime = res.getElapsedTime();
+                writer.append("elapsed time: " + elapsedTime);
                 asyncContext.complete();                
             }
         });

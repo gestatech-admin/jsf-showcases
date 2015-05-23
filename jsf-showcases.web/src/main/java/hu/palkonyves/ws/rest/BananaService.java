@@ -19,7 +19,7 @@ public class BananaService {
     BananaStore bananaStore;
 
     @GET
-    @Path("getAllBananas")
+    @Path("allBananas")
     public List<Banana> getAllBananas() {
         List<Banana> allBanana = bananaStore.getAllBanana();
         return allBanana;
