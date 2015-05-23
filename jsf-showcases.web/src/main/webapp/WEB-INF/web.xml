@@ -70,9 +70,9 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>AsyncTranslateServlet</display-name>
-		<servlet-name>AsyncTranslateServlet</servlet-name>
-		<servlet-class>hu.palkonyves.servlet.AsyncTranslateServlet</servlet-class>
+		<display-name>AsyncServlet</display-name>
+		<servlet-name>AsyncServlet</servlet-name>
+		<servlet-class>hu.palkonyves.servlet.AsyncServlet</servlet-class>
 		<async-supported>true</async-supported>
 	</servlet>
 
@@ -82,8 +82,8 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AsyncTranslateServlet</servlet-name>
-		<url-pattern>/asyncTranslate</url-pattern>
+		<servlet-name>AsyncServlet</servlet-name>
+		<url-pattern>/asyncServlet</url-pattern>
 	</servlet-mapping>
 
 

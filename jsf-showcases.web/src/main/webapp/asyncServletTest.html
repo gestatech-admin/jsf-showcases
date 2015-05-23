@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+
+<script src="/jsf-showcase/resources/js/jquery-1.10.2.js" ></script>
+<script>
+$( document ).ready(function() {
+	
+	var counter = 0;
+	
+	var callAsyncServlet = function() {
+		// Assign handlers immediately after making the request,
+		// and remember the jqXHR object for this request
+		// we need to add a counter, otherwise browser blocks the network connection
+		// until the previous request arrives
+		var jqxhr = $.ajax({url:"http://localhost:8080/jsf-showcase/asyncServlet?" + counter++})
+				.done(function(data) {
+					var newResponse = $("<li>"+data+"</li>");
+				    	var asyncServletResponseList = $("#asyncServletResponseList");
+					asyncServletResponseList.append(newResponse);
+				}).fail(function(data) {
+					// alert("error");
+				}).always(function(data) {
+					// alert("complete");
+				});
+	}
+
+	$("#callServletButton").click(callAsyncServlet);
+});
+</script>
+</head>
+<body>
+
+<a id="callServletButton" href="#"  >call servlet</a>
+	<ul id="asyncServletResponseList">
+
+	</ul>
+</body>
+</html>
