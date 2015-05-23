@@ -50,6 +50,7 @@
 		</repository>
 	</repositories>
 
+    <!-- http://www.mastertheboss.com/jboss-server/wildfly-8/maven-configuration-for-java-ee-7-projects-on-wildfly -->
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>
@@ -118,6 +119,20 @@
 <!--                 </exclusion> -->
 <!--             </exclusions> -->
 <!--         </dependency> -->
+		<dependency>
+			<groupId>
+				org.jboss.spec.javax.enterprise.concurrent
+			</groupId>
+			<artifactId>jboss-concurrency-api_1.0_spec</artifactId>
+			<version>1.0.0.CR1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
