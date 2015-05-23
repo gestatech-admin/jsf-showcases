@@ -43,9 +43,9 @@
 <!-- 	</context-param> -->
 
 	<!-- Weld servlet listener -->
-	<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-	</listener>
+<!-- 	<listener> -->
+<!-- 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
+<!-- 	</listener> -->
 
 	<!-- Mojarra serlvet listener (for jetty 8)-->
 <!-- 	<listener> -->
@@ -67,11 +67,23 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AsyncTranslateServlet</display-name>
+		<servlet-name>AsyncTranslateServlet</servlet-name>
+		<servlet-class>hu.palkonyves.servlet.AsyncTranslateServlet</servlet-class>
+		<async-supported>true</async-supported>
+	</servlet>
 
 	<!-- servlet mappings -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AsyncTranslateServlet</servlet-name>
+		<url-pattern>/asyncTranslate</url-pattern>
 	</servlet-mapping>
 
 
