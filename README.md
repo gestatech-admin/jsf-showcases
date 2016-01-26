@@ -8,7 +8,7 @@ Creating eclipse project:
   
 Building the artifact
 
-  `mvn clean package`
+  `mvn clean package install`
   
 Running the container. This will download a Tomcat 7 version and run the application on that.
   
