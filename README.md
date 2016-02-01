@@ -2,18 +2,21 @@
 
 Showcases of how development should be done in JSF.
 
+Building the artifact
+
+  `mvn clean package install`
+
 Creating eclipse project:
   
   `mvn eclipse:eclipse`
   
-Building the artifact
+The application can be deployed on the standalone WildFly instance by dropping the war in the appropriate folder.
 
-  `mvn clean package install`
-  
-Running the container. This will download a Tomcat 7 version and run the application on that.
-  
-  `mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run`
-  
-To redeploying the application, from a separate console issue the command:
+# Java Dynamic proxy and class loading examples
+All the examples can be found in proxy-examples-main/src/test/ as JUnit tests
 
-  `mvn verify org.codehaus.cargo:cargo-maven2-plugin:deployer-redeploy`
+* How to create a client-side load balancer for REST service stub
+* How to mimic Mockito with dynamic proxy
+* How to find resources on the classpath
+* How to load classes with a custom class loader
+* How to find classes with a specific annotation
