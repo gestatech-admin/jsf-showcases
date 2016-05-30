@@ -1,3 +1,11 @@
+# Setting up WidlFly
+* Go to the WildFly Getting Started page: https://docs.jboss.org/author/display/WFLY8/Getting+Started+Guide?
+** Download and unpack WildFly
+** Export JBOSS_HOME variable in /etc/bashrc or ~/.bashrc
+** Download and unpack Java then export the JAVA_HOME environment variable in /etc/bashrc or ~/.bashrc (I like to use different java versions that is why I don't use a package to install it)
+** Start WildFly
+** Add management user
+
 # jsf-showcases
 
 Showcases of how development should be done in JSF.
