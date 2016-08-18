@@ -153,50 +153,50 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<!-- https://github.com/kongchen/swagger-maven-plugin https://github.com/kongchen/swagger-maven-example/blob/master/pom.xml 
-					https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-JAX-RS-Project-Setup -->
-				<groupId>com.github.kongchen</groupId>
-				<artifactId>swagger-maven-plugin</artifactId>
-				<version>${swagger-maven-plugin-version}</version>
-				<configuration>
-					<apiSources>
-						<apiSource>
-							<springmvc>false</springmvc>
-							<locations>hu.palkonyves.ws.rest</locations>
-							<schemes>http,https</schemes>
-							<host>localhost</host>
-							<basePath>/api</basePath>
-							<info>
-								<title>Swagger Maven Plugin Sample</title>
-								<version>v1</version>
-								<!-- use markdown here because I'm using markdown for output, if 
-									you need to use html or other markup language, you need to use your target 
-									language, and note escape your description for xml -->
-								<description>This is a sample.</description>
-								<termsOfService>some things</termsOfService>
-								<contact>
-									<email>pkonyves@github.com</email>
-									<name>Pal Konyves</name>
-									<url>http://palkonyves.blogspot.com</url>
-								</contact>
-							</info>
-							<!-- template is mandatory -->
-							<templatePath>${basedir}/templates/strapdown.html.hbs</templatePath>
-							<outputPath>${basedir}/generated/document.html</outputPath>
-							<swaggerDirectory>generated/swagger-ui</swaggerDirectory>
-						</apiSource>
-					</apiSources>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				https://github.com/kongchen/swagger-maven-plugin https://github.com/kongchen/swagger-maven-example/blob/master/pom.xml --> 
+<!-- 					https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-JAX-RS-Project-Setup -->
+<!-- 				<groupId>com.github.kongchen</groupId> -->
+<!-- 				<artifactId>swagger-maven-plugin</artifactId> -->
+<!-- 				<version>${swagger-maven-plugin-version}</version> -->
+<!-- 				<configuration> -->
+<!-- 					<apiSources> -->
+<!-- 						<apiSource> -->
+<!-- 							<springmvc>false</springmvc> -->
+<!-- 							<locations>hu.palkonyves.ws.rest</locations> -->
+<!-- 							<schemes>http,https</schemes> -->
+<!-- 							<host>localhost</host> -->
+<!-- 							<basePath>/api</basePath> -->
+<!-- 							<info> -->
+<!-- 								<title>Swagger Maven Plugin Sample</title> -->
+<!-- 								<version>v1</version> -->
+<!-- 								use markdown here because I'm using markdown for output, if -->
+<!-- 									you need to use html or other markup language, you need to use your target  -->
+<!-- 									language, and note escape your description for xml -->
+<!-- 								<description>This is a sample.</description> -->
+<!-- 								<termsOfService>some things</termsOfService> -->
+<!-- 								<contact> -->
+<!-- 									<email>pkonyves@github.com</email> -->
+<!-- 									<name>Pal Konyves</name> -->
+<!-- 									<url>http://palkonyves.blogspot.com</url> -->
+<!-- 								</contact> -->
+<!-- 							</info> -->
+<!-- 							template is mandatory -->
+<!-- 							<templatePath>${basedir}/templates/strapdown.html.hbs</templatePath> -->
+<!-- 							<outputPath>${basedir}/generated/document.html</outputPath> -->
+<!-- 							<swaggerDirectory>generated/swagger-ui</swaggerDirectory> -->
+<!-- 						</apiSource> -->
+<!-- 					</apiSources> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>compile</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>generate</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 			
 			<!-- Generate the build classpath for swagger-codegen -->
 			<!-- http://maven.apache.org/plugins/maven-dependency-plugin/usage.html -->
@@ -216,6 +216,16 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
