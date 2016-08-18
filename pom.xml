@@ -12,5 +12,6 @@
   <modules>
     <module>jsf-showcases.resources</module>
     <module>jsf-showcases.web</module>
+    <module>javaee-concurrency-showcase</module>
   </modules>
 </project>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+
+<script src="/jsf-showcase/resources/js/jquery-1.10.2.js" ></script>
+<script>
+$( document ).ready(function() {
+	
+	var lastCount = 0;
+	
+	var makeDone = function (counter) {
+		
+		return function(data) {
+			var serialized = typeof(data) === "string" ? data : JSON.stringify(data, null, 2);
+			var newResponse = $("<li>"+counter+": "+serialized+"</li>");
+	    	var asyncServletResponseList = $("#asyncServletResponseList");
+		asyncServletResponseList.append(newResponse);
+	}
+	}
+	
+	var callAsyncServlet = function (servletName, times) { 
+		
+			// Assign handlers immediately after making the request,
+			// and remember the jqXHR object for this request
+			// we need to add a counter, otherwise browser blocks the network connection
+			// until the previous request arrives
+			for (var i = 0; i < times; i++) {
+			var jqxhr = $.ajax({url:"http://localhost:8080/jsf-showcase/"+servletName+"?" + i})
+					.done(makeDone(i)).fail(makeDone(i));
+			}
+		
+	}
+
+	$(".serviceUrls a").click(function() {
+			var url = $(this).data("url");
+			var times = $(this).data("times");
+			if (typeof(times) === "undefined") {
+				times = 100;
+			}
+			callAsyncServlet(url, times);
+		})
+	});
+</script>
+</head>
+<body>
+	<div style="float: left; width: 300px;">
+		<ul class="serviceUrls">
+			<li><a id="callUnsafeServlet1Button" data-url="unsafeServlet1" href="#">Unsafe servlet 1</a></li>
+			<!--  <li><a id="callUnsafeServlet2Button" data-url="unsafeServlet2" href="#">Unsafe servlet 2</a></li> -->
+			<li><a id="callUnsafeServlet3Button" data-url="unsafeServlet3" href="#">Unsafe servlet 3</a></li>
+			<li><a id="callSafeServlet1Button" data-url="safeServlet1" href="#">Safe servlet</a></li>
+			<li><a id="callUsersAButton" data-url="api/users/simple" href="#">Users simple</a></li>
+			<li><a id="callUsersBButton" data-url="api/users/sort" href="#">Users Sort</a></li>
+			<li><a id="callUsersCButton" data-url="api/users/syncedsort" href="#">Users Synced Sort</a></li>
+			<li><a id="callUsersDButton" data-url="api/users/immutablesort" href="#">Users Immutable Sort</a></li>
+			<li><a id="elapsedAsyncServletButton" data-times="1" data-url="elapsedAsyncServlet1" href="#">(ET) Active waiting loop</a></li>
+			<li><a id="elapsedAsyncServlet2Button" data-times="1" data-url="elapsedAsyncServlet2" href="#">(ET) Low level wait(), notify() - Safe</a></li>
+			<li><a id="elapsedAsyncServlet3Button" data-times="1" data-url="elapsedAsyncServlet3" href="#">(ET) FutureTask - Safe</a></li>
+			<li><a id="elapsedAsyncServlet4Button" data-times="1" data-url="elapsedAsyncServlet4" href="#">(ET) FutureTasks - Safe</a></li>
+			<!-- <li><a id="elapsedAsyncServlet5Button" data-times="1" data-url="elapsedAsyncServlet5" href="#">elapsed async servlet 5</a></li>
+			<li><a id="callServletButton" data-url="asyncServlet" href="#">call servlet</a></li>
+			 -->
+		</ul>
+	</div>
+	<div style="float: left; width: calc(100% - 200px);">
+
+
+		<ul id="asyncServletResponseList">
+
+		</ul>
+	</div>
+</body>
+</html>
